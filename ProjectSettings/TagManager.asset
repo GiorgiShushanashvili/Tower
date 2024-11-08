@@ -8,6 +8,10 @@ TagManager:
   - ShooterZone
   - Zombie
   - Bullet
+  - CriticalArea
+  - Edge
+  - ZombieBullet
+  - Stone
   layers:
   - Default
   - TransparentFX

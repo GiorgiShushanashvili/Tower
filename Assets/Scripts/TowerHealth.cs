@@ -9,12 +9,15 @@ public class TowerHealth : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _towerHealth;
 
-    private int _maxHealth = 100;
-    //private int _damage = 2;
-    private int _currentHealth;
+    private float _maxHealth;
+    private float _currentHealth;
+    private float _regenrate;
+    private float _intervalForRegeneration=1f;
 
     void Start()
     {
+        _maxHealth=GlobalVariables._maxHealth;
+        _regenrate = GlobalVariables._regeneration;
         if (towerHealth == null)
         {
             towerHealth = this;
@@ -22,10 +25,19 @@ public class TowerHealth : MonoBehaviour
         RefreshLife();      
     }
 
-    public void CurrentLife(int damage)
+    private void Update()
+    {
+        if (_currentHealth == _maxHealth)
+        {
+            StopCoroutine(Heal());
+        }
+    }
+
+    public void CurrentLife(float damage)
     {
         _currentHealth -= damage;
         _towerHealth.text = _currentHealth.ToString();
+        StartCoroutine(Heal());
     }
 
     public bool Die()
@@ -37,5 +49,11 @@ public class TowerHealth : MonoBehaviour
     {
         _currentHealth = _maxHealth;
         _towerHealth.text = _maxHealth.ToString();
+    }
+
+    private IEnumerator Heal()
+    {
+        _currentHealth += _regenrate;
+        yield return new WaitForSeconds(_intervalForRegeneration); 
     }
 }

@@ -5,35 +5,57 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private Transform _cube;
     [SerializeField] private Transform _parent;
-    [SerializeField] private GameObject _zombieTypes;
+    [SerializeField] private GameObject _walkingZombie;
+    [SerializeField] private GameObject _zombieWithPistol;
 
-    private float _radiusForSpawning =2f;
+    private float _radiusForSpawning =5f;
 
-    // Start is called before the first frame update
+    private int _counter;
+
     void Start()
     {
-        StartCoroutine(SpawnEnemy());
+        _counter = 0;
+        StartCoroutine(SpawnEnemy());       
+    }
+
+    private Vector3 SpawnHelper()
+    {
+        float randomAngle = Random.Range(0f, 360f);
+        float randomX = _radiusForSpawning * Mathf.Cos(randomAngle);
+        float randomZ = _radiusForSpawning * (Mathf.Sin(randomAngle));
+
+        Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
+
+        return spawnPoint;
     }
 
     private IEnumerator SpawnEnemy()
     {
         while (true)
         {
-            //GameObject gameObject = _zombieTypes[Random.Range(0, _zombieTypes.Length)];
-            Transform spawPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
 
-            Vector3 randomSpawnPoint = new Vector3(spawPoint.position.x + Random.Range(-_radiusForSpawning, _radiusForSpawning), 0,
-                spawPoint.position.z + Random.Range(-_radiusForSpawning, _radiusForSpawning));
+            Vector3 spawnPoint=SpawnHelper();
 
-            Vector3 dirToCube = (_cube.position - randomSpawnPoint).normalized;
+            Vector3 dirToCube = (_cube.position - spawnPoint).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(dirToCube);
 
-            GameObject enemy= Instantiate(_zombieTypes, randomSpawnPoint, targetRotation);
+            GameObject enemy= Instantiate(_walkingZombie, spawnPoint, targetRotation);
+            _counter++;
+            if (_counter == 3)
+            {
+                Vector3 spawnPointForPistolZombie = SpawnHelper();
+
+                Vector3 dirToCubeForPistolZombie = (_cube.position - spawnPointForPistolZombie).normalized;
+                Quaternion targetRotationForPistolZombie = Quaternion.LookRotation(dirToCubeForPistolZombie);
+
+                GameObject pistolZombie = Instantiate(_zombieWithPistol, spawnPointForPistolZombie, targetRotationForPistolZombie);
+                pistolZombie.transform.SetParent(_parent);
+                _counter = 0;
+            }
             enemy.transform.SetParent(_parent);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.8f);
         }
     }
 }

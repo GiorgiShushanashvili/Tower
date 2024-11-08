@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Zombie : ZombieParent
 {
-    //private Bullet _bullet;
+    public float health;
 
     private void Start()
     {
-        _health = 100f;
-        _speed = 5f;
+        _health = 5f;
+        _speed = 0.3f;
         _isMoving = true;
     }
     void Update()
@@ -19,26 +16,42 @@ public class Zombie : ZombieParent
         { 
             ZombieMove();
         }
+        health = _health;
     }
 
     public override void ZombieMove()
     {
         Vector3 dirToCube=(_cube.position- transform.position).normalized;
-        _rb.MovePosition(transform.position+ dirToCube * _speed*Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _cube.position, _speed * Time.deltaTime);
+        //_rb.MovePosition(transform.position+ dirToCube * _speed*Time.deltaTime);
     }
+
+    private bool isDead = false;
 
     public override void TakeDamage(float damage)
     {
         _health -= damage;
-        if(_health <= 0)
+        if(_health <= 0 && !isDead)
         {
+            _animator.SetBool("Dead", true);
+            _isMoving = false;
             Die();
+            isDead = true;
+            TemporaryCoins.Instance.IncreaseCoinsByWalkingZombies();
+            
         }
     }
 
     private void Die()
     {
-        Destroy(gameObject);
+        if (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
+        {
+            CriticalAreaHandler.CriticalInstance.RemoveZombie();
+        }
+        AnimationManager.Animation._animator.SetBool("Shooting", false);
+        AnimationManager.Animation._animator.SetBool("IsInTriggerZone", false);
+
+        Destroy(gameObject,1.2f);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -54,7 +67,8 @@ public class Zombie : ZombieParent
     {
         if(other.gameObject.tag == "Bullet")
         {
-            TakeDamage(other.gameObject.GetComponent<Bullet>()._damage);
+            Destroy(other.gameObject);
+            TakeDamage(other.gameObject.GetComponent<Bullet>()._bulletStrength);
         }
     }
 

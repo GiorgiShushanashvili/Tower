@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -8,6 +9,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform _parent;
     [SerializeField] private GameObject _player;
 
+     MeshRenderer _renderer;
+     MeshRenderer _renderer2;
     private Rigidbody _rb;
 
     float _heightDelta = 0.1f;
@@ -17,30 +20,39 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
+
         GameObject firstTile = Instantiate(LevelTile, new Vector3(0, levels.Count, 0), Quaternion.identity);
+
+        BlockItemClass blockItem = firstTile.GetComponent<BlockItemClass>();
+        _renderer = blockItem.CylinderTop.GetComponent<MeshRenderer>();
+        _renderer2 = blockItem.CylinderMain.GetComponent<MeshRenderer>();
+
         firstTile.transform.SetParent(_parent);
         levels.Add(firstTile);
-        _heightDelta = LevelTile.transform.localScale.y;
-        Instantiate(_player,new Vector3(0,_heightDelta,0),Quaternion.identity);
-
-        Time.timeScale = 1.0f;
+        _heightDelta = (_renderer.bounds.size.y + _renderer2.bounds.size.y);
+        GameObject player= Instantiate(_player,new Vector3(0,_heightDelta,0),Quaternion.identity);
+        player.transform.SetParent(firstTile.transform);
     }
 
     void AddTile()
     {
-        GameObject tile = Instantiate(LevelTile, new Vector3(0, levels.Count * _heightDelta, 0), Quaternion.identity);
+        foreach (var level in levels)
+        {
+            level.transform.position = new Vector3(level.transform.position.x, level.transform.position.y + _heightDelta, level.transform.position.z);
+        }
+        GameObject tile = Instantiate(LevelTile, new Vector3(0,0, 0), Quaternion.identity);
         tile.transform.SetParent(_parent);
-
         levels.Add(tile);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            AddTile();
-        }*/
+            //AddTile();
+        }
         if (TowerHealth.towerHealth.Die())
         {
             ReduceTile();
@@ -48,21 +60,21 @@ public class LevelGenerator : MonoBehaviour
         }
         if (levels.Count == 0)
         {
-            GameOver();
+            AddTile();
+            GameManager.Instance.GameOver();
         }
 
     }
 
     public void ReduceTile()
     {
-        GameObject firstTile = levels[0];
-        levels.RemoveAt(0);
+        foreach (var level in levels)
+        {
+            level.transform.position = new Vector3(level.transform.position.x, level.transform.position.y - _heightDelta, level.transform.position.z);
+        }
+        GameObject firstTile = levels[levels.Count-1];
+        levels.Remove(firstTile);
         Destroy(firstTile);
-    }
-
-    private void GameOver()
-    {
-        Time.timeScale =0f;
     }
     
     
