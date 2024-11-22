@@ -5,6 +5,15 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("RegenerationInterval")]
+    [SerializeField] TextMeshProUGUI _currentInterval;
+    [SerializeField] TextMeshProUGUI _potentialInterval;
+
+    private float _intervalToDecrease = 0.05f;
+    private float _nextInterval;
+    private int _intervalPrice = 4;
+
+
     [Header("Strength")]
     [SerializeField] TextMeshProUGUI _currentStrength;
     [SerializeField] TextMeshProUGUI _currentStrengthForMainStats;
@@ -35,9 +44,14 @@ public class UIManager : MonoBehaviour
     [Header("Upgrade Costs")]
     [SerializeField] TextMeshProUGUI _strengthCost;
     [SerializeField] TextMeshProUGUI _speedCost;
+    [SerializeField] TextMeshProUGUI _intervalCost;
 
     private void Start()
     {
+        _nextInterval=GlobalVariables._regenerationInterval-_intervalToDecrease;
+        _currentInterval.text=GlobalVariables._regenerationInterval.ToString();
+        _potentialInterval.text=_nextInterval.ToString();
+
         _nextStrength = GlobalVariables._damageStrengthForPlayer + _strengthToIncrease;
         _currentStrength.text = GlobalVariables._damageStrengthForPlayer.ToString();
         _currentStrengthForMainStats.text = GlobalVariables._damageStrengthForPlayer.ToString();
@@ -53,6 +67,7 @@ public class UIManager : MonoBehaviour
 
         _strengthCost.text=_strengthPrice.ToString();
         _speedCost.text=_speedPrice.ToString();
+        _intervalCost.text=_intervalPrice.ToString();
     }
 
     private void FixedUpdate()
@@ -61,6 +76,7 @@ public class UIManager : MonoBehaviour
         _persistentCoins.text = TemporaryCoins._goldCoins.ToString();
         _strengthCost.text = _strengthPrice.ToString();
         _speedCost.text = _speedPrice.ToString();
+        _intervalCost.text = _intervalPrice.ToString();
     }
 
     #region
@@ -87,6 +103,27 @@ public class UIManager : MonoBehaviour
     #region
     public void UpdateSpeed()
     {
+        if (_intervalPrice < TemporaryCoins._silverCoins)
+        {
+            UpdateIntervalStats();
+            TemporaryCoins._silverCoins -= _intervalPrice;
+            _intervalPrice += 1;
+        }
+        _currentInterval.text = GlobalVariables._regenerationInterval.ToString();
+        _potentialInterval.text = _nextInterval.ToString();
+    }
+
+    private void UpdateIntervalStats()
+    {
+        GlobalVariables._regenerationInterval += _intervalToDecrease;
+        _nextInterval += _intervalToDecrease;
+    }
+    #endregion
+
+    #region
+
+    public void UpdateRegenerationInreval()
+    {
         if (_speedPrice < TemporaryCoins._silverCoins)
         {
             UpdateSpeedStats();
@@ -103,7 +140,6 @@ public class UIManager : MonoBehaviour
         GlobalVariables._bulletSpeedForPlayer += _speedToIncrease;
         _nextSpeed += _speedToIncrease;
     }
+
     #endregion
-
-
 }
