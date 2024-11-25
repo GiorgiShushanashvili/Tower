@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,9 +11,9 @@ public class TowerHealth : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _towerHealth;
 
-    private int _maxHealth;
-    private int _currentHealth;
-    private int _regenrate;
+    private float _maxHealth;
+    private float _currentHealth;
+    private float _regenrate;
     private float _intervalForRegeneration;
 
     private bool _isRegenerating = false;
@@ -32,10 +33,10 @@ public class TowerHealth : MonoBehaviour
 
 
 
-    public void CurrentLife(int damage)
+    public void CurrentLife(float damage)
     {
-        _currentHealth -= damage;
-        _towerHealth.text = _currentHealth.ToString();
+        _currentHealth -= (damage-damage*GlobalVariables._damageResistance);
+        _towerHealth.text = Math.Round(_currentHealth, 2).ToString();
         if (_currentHealth < _maxHealth&&!_isRegenerating)
         {
             StartCoroutine(Heal());
@@ -60,7 +61,7 @@ public class TowerHealth : MonoBehaviour
         while (_currentHealth < _maxHealth)
         {
             yield return new WaitForSeconds(_intervalForRegeneration);
-            int healthToAdd = Mathf.Min(_regenrate, _maxHealth - _currentHealth);
+            float healthToAdd = Mathf.Min(_regenrate, _maxHealth - _currentHealth);
             _currentHealth += healthToAdd;
             _towerHealth.text = _currentHealth.ToString();
 

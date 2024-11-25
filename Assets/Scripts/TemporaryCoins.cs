@@ -1,8 +1,13 @@
+using System;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class TemporaryCoins : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI _silverCoin;
+    [SerializeField] TextMeshProUGUI _goldCoin;
+
     public static TemporaryCoins Instance;
 
     public static int _silverCoins=50;
@@ -31,6 +36,11 @@ public class TemporaryCoins : MonoBehaviour
         _goldCoins = PlayerPrefs.GetInt("ActualGold", _goldCoins);
     }
 
+    private void FixedUpdate()
+    {
+        UpdateCoinsFont();
+    }
+
     public void IncreaseCoinsByWalkingZombies()
     {
         _silverCoins += _walkingZombiePrizeSilver;
@@ -51,5 +61,17 @@ public class TemporaryCoins : MonoBehaviour
     {
         PlayerPrefs.SetInt("ActualGold", _goldCoins);
         PlayerPrefs.Save();
+    }
+
+    private void UpdateCoinsFont()
+    {
+        if (_silverCoin.text.Length >= 5)
+        {
+            _silverCoin.fontSize = 30;
+        }
+        if(_goldCoin.text.Length >= 5)
+        {
+            _goldCoin.fontSize = 30;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,6 +6,24 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Damage Resistance")]
+    [SerializeField] TextMeshProUGUI _currentResistance;
+    [SerializeField] TextMeshProUGUI _potentialResistance;
+
+    private float _resistanceToIncrease = 0.005f;
+    private float _nextResistance;
+    private int _resistanceUpgradePrice = 4;
+
+
+
+    [Header("Regeneration Range")]
+    [SerializeField] TextMeshProUGUI _currentRangeForRegeneration;
+    [SerializeField] TextMeshProUGUI _potentialRangeForRegeneration;
+
+    private float _rangeToIncrease = 1;
+    private float _nextRegenRange;
+    private int _rangeUpgradePrice=4;
+
     [Header("RegenerationInterval")]
     [SerializeField] TextMeshProUGUI _currentInterval;
     [SerializeField] TextMeshProUGUI _potentialInterval;
@@ -45,9 +64,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _strengthCost;
     [SerializeField] TextMeshProUGUI _speedCost;
     [SerializeField] TextMeshProUGUI _intervalCost;
+    [SerializeField] TextMeshProUGUI _regenrationCost;
+    [SerializeField] TextMeshProUGUI _resistanceCost;
 
     private void Start()
     {
+        _nextResistance=GlobalVariables._damageResistance+_resistanceToIncrease;
+        _currentResistance.text=GlobalVariables._damageResistance.ToString();
+        _potentialResistance.text = _nextResistance.ToString();
+
+        _nextRegenRange=GlobalVariables._regeneration+_rangeToIncrease;
+        _currentRangeForRegeneration.text=GlobalVariables._regeneration.ToString();
+        _potentialRangeForRegeneration.text=_nextRegenRange.ToString();
+
         _nextInterval=GlobalVariables._regenerationInterval-_intervalToDecrease;
         _currentInterval.text=GlobalVariables._regenerationInterval.ToString();
         _potentialInterval.text=_nextInterval.ToString();
@@ -68,6 +97,8 @@ public class UIManager : MonoBehaviour
         _strengthCost.text=_strengthPrice.ToString();
         _speedCost.text=_speedPrice.ToString();
         _intervalCost.text=_intervalPrice.ToString();
+        _regenrationCost.text=_rangeUpgradePrice.ToString();
+        _resistanceCost.text=_resistanceUpgradePrice.ToString();
     }
 
     private void FixedUpdate()
@@ -77,7 +108,54 @@ public class UIManager : MonoBehaviour
         _strengthCost.text = _strengthPrice.ToString();
         _speedCost.text = _speedPrice.ToString();
         _intervalCost.text = _intervalPrice.ToString();
+        _regenrationCost.text= _rangeUpgradePrice.ToString();
+        _resistanceCost.text= _resistanceUpgradePrice.ToString();
     }
+
+    #region
+
+    public void UpdateDamageResistance()
+    {
+        if (_resistanceUpgradePrice < TemporaryCoins._silverCoins)
+        {
+            UpgradeResistanceStats();
+            TemporaryCoins._silverCoins = _resistanceUpgradePrice;
+            _resistanceUpgradePrice += 1;
+        }
+        _currentResistance.text = Math.Round(GlobalVariables._damageResistance,3).ToString();
+        _potentialResistance.text = Math.Round(_nextResistance, 3).ToString();
+    }
+
+    private void UpgradeResistanceStats()
+    {
+        GlobalVariables._damageResistance += _resistanceToIncrease;
+        _nextResistance += _resistanceToIncrease;
+    }
+
+    #endregion
+
+
+    #region
+    public void UpdateRegeneration()
+    {
+        if (_rangeUpgradePrice < TemporaryCoins._silverCoins)
+        {
+            UpdateRegenerationStats();
+            TemporaryCoins._silverCoins -= _rangeUpgradePrice;
+            _rangeUpgradePrice += 1;
+        }
+        _currentRangeForRegeneration.text=Math.Round(GlobalVariables._regeneration,1).ToString();
+        _potentialRangeForRegeneration.text=Math.Round(_nextRegenRange,3).ToString();
+    }
+
+    private void UpdateRegenerationStats()
+    {
+        GlobalVariables._regeneration += _rangeToIncrease;
+        _nextRegenRange += _rangeToIncrease;
+    }
+
+    #endregion
+
 
     #region
     public void UpdateStrength()
@@ -103,27 +181,6 @@ public class UIManager : MonoBehaviour
     #region
     public void UpdateSpeed()
     {
-        if (_intervalPrice < TemporaryCoins._silverCoins)
-        {
-            UpdateIntervalStats();
-            TemporaryCoins._silverCoins -= _intervalPrice;
-            _intervalPrice += 1;
-        }
-        _currentInterval.text = GlobalVariables._regenerationInterval.ToString();
-        _potentialInterval.text = _nextInterval.ToString();
-    }
-
-    private void UpdateIntervalStats()
-    {
-        GlobalVariables._regenerationInterval += _intervalToDecrease;
-        _nextInterval += _intervalToDecrease;
-    }
-    #endregion
-
-    #region
-
-    public void UpdateRegenerationInreval()
-    {
         if (_speedPrice < TemporaryCoins._silverCoins)
         {
             UpdateSpeedStats();
@@ -139,6 +196,27 @@ public class UIManager : MonoBehaviour
     {
         GlobalVariables._bulletSpeedForPlayer += _speedToIncrease;
         _nextSpeed += _speedToIncrease;
+    }
+    #endregion
+
+    #region
+
+    public void UpdateRegenerationInreval()
+    {
+        if (_intervalPrice < TemporaryCoins._silverCoins)
+        {
+            UpdateIntervalStats();
+            TemporaryCoins._silverCoins -= _intervalPrice;
+            _intervalPrice += 1;
+        }
+        _currentInterval.text = GlobalVariables._regenerationInterval.ToString();
+        _potentialInterval.text = _nextInterval.ToString();
+    }
+
+    private void UpdateIntervalStats()
+    {
+        GlobalVariables._regenerationInterval -= _intervalToDecrease;
+        _nextInterval -= _intervalToDecrease;
     }
 
     #endregion
