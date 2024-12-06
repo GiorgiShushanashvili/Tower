@@ -67,11 +67,11 @@ public class TemporaryCoins : MonoBehaviour
     {
         if (_silverCoin.text.Length >= 5)
         {
-            _silverCoin.fontSize = 30;
+            _silverCoin.fontSize = 28;
         }
         if(_goldCoin.text.Length >= 5)
         {
-            _goldCoin.fontSize = 30;
+            _goldCoin.fontSize = 28;
         }
     }
 }

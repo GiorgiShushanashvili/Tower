@@ -18,4 +18,7 @@ public static class GlobalVariables
 
 
     public static float _damageResistance =0.005f;
+
+    public static int _waveBonus = 15;
+    public static int _killBonus = 10;
 }

@@ -2,10 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Kill Bonus")]
+    [SerializeField] TextMeshProUGUI _currentKillBonus;
+    [SerializeField] TextMeshProUGUI _potentialKillBonus;
+
+    private int _killBonusToIncrease = 4;
+    private int _nextKillBonuss;
+    private int _killBonusUpgradePrice = 4;
+
+
     [Header("Damage Resistance")]
     [SerializeField] TextMeshProUGUI _currentResistance;
     [SerializeField] TextMeshProUGUI _potentialResistance;
@@ -13,7 +23,6 @@ public class UIManager : MonoBehaviour
     private float _resistanceToIncrease = 0.005f;
     private float _nextResistance;
     private int _resistanceUpgradePrice = 4;
-
 
 
     [Header("Regeneration Range")]
@@ -66,9 +75,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _intervalCost;
     [SerializeField] TextMeshProUGUI _regenrationCost;
     [SerializeField] TextMeshProUGUI _resistanceCost;
+    [SerializeField] TextMeshProUGUI _killBonusUpgradeCost;
 
     private void Start()
     {
+        _nextKillBonuss=GlobalVariables._killBonus+_killBonusToIncrease;
+        _currentKillBonus.text=GlobalVariables._killBonus.ToString();
+        _potentialKillBonus.text=_nextKillBonuss.ToString();
+
         _nextResistance=GlobalVariables._damageResistance+_resistanceToIncrease;
         _currentResistance.text=GlobalVariables._damageResistance.ToString();
         _potentialResistance.text = _nextResistance.ToString();
@@ -99,6 +113,7 @@ public class UIManager : MonoBehaviour
         _intervalCost.text=_intervalPrice.ToString();
         _regenrationCost.text=_rangeUpgradePrice.ToString();
         _resistanceCost.text=_resistanceUpgradePrice.ToString();
+        _killBonusUpgradeCost.text = _killBonusUpgradePrice.ToString();
     }
 
     private void FixedUpdate()
@@ -110,16 +125,40 @@ public class UIManager : MonoBehaviour
         _intervalCost.text = _intervalPrice.ToString();
         _regenrationCost.text= _rangeUpgradePrice.ToString();
         _resistanceCost.text= _resistanceUpgradePrice.ToString();
+        _killBonusUpgradeCost.text= _killBonusUpgradePrice.ToString();
     }
 
-    #region
 
+    #region
+    public void UpdateKillBonus()
+    {
+        if (_killBonusUpgradePrice < TemporaryCoins._silverCoins)
+        {
+            UpgradeKillBonusStats();
+            TemporaryCoins._silverCoins -= _killBonusUpgradePrice;
+            _killBonusUpgradePrice += 1;
+        }
+        _currentKillBonus.text=GlobalVariables._killBonus.ToString();
+        _potentialKillBonus.text=_nextKillBonuss.ToString();
+    }
+
+    private void UpgradeKillBonusStats()
+    {
+        GlobalVariables._killBonus += _killBonusToIncrease;
+        _nextKillBonuss += _killBonusToIncrease;
+    }
+
+    #endregion
+
+
+
+    #region
     public void UpdateDamageResistance()
     {
         if (_resistanceUpgradePrice < TemporaryCoins._silverCoins)
         {
             UpgradeResistanceStats();
-            TemporaryCoins._silverCoins = _resistanceUpgradePrice;
+            TemporaryCoins._silverCoins -= _resistanceUpgradePrice;
             _resistanceUpgradePrice += 1;
         }
         _currentResistance.text = Math.Round(GlobalVariables._damageResistance,3).ToString();

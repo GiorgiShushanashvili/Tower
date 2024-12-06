@@ -8,6 +8,7 @@ public class CriticalAreaHandler : MonoBehaviour
     public List<Transform> _criticalAreaZombies;
 
     public bool _isMoving = false;
+    public static int _killedZombies;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class CriticalAreaHandler : MonoBehaviour
     {
         _criticalAreaZombies = new List<Transform>();
     }
+
 
     private void FixedUpdate()
     {
@@ -47,6 +49,7 @@ public class CriticalAreaHandler : MonoBehaviour
 
     public void RemoveZombie()
     {
+        _killedZombies++;
         _criticalAreaZombies.RemoveAt(0);
 
         if (_criticalAreaZombies.Count> 0)
