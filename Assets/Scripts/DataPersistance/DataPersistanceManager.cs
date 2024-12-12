@@ -19,7 +19,8 @@ public class DataPersistanceManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
-            
+            this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+
         }
     }
 
