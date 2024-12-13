@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971ac3691619a584197bebde4f69e156, type: 3}
+  m_Name: GameDataScriptableObject
+  m_EditorClassIdentifier: 
+  _minDamageStrength: 4
+  _maxDamageStrength: 100
+  _minBulletSpeed: 3
+  _maxBulletSpeed: 10
+  _minHealth: 78.6
+  _maxHealth: 150
+  _minRegeneration: 10
+  _maxRegeneration: 30
+  _worstRegenerationTimeInterval: 2
+  _bestRgenerationTimeInterval: 0.5
+  _minDamageResistance: 0.005
+  _maxDamageResistance: 0.5
+  _minKillBonus: 10
+  _maxKillBonus: 100
+  _minWaveBonus: 15
+  _maxWaveBonus: 120
+  _minValue: 0
+  _maxValue: 30

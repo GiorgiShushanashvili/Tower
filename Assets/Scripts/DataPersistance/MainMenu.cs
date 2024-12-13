@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    public void OnNewGameClicked()
+    /*public void OnNewGameClicked()
     {
         DataPersistanceManager.Instance.NewGame();
-    }
+    }*/
 
     public void OnLoadGameClicked()
     {

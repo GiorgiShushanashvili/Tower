@@ -8139,6 +8139,7 @@ GameObject:
   - component: {fileID: 1650463117}
   - component: {fileID: 1650463121}
   - component: {fileID: 1650463122}
+  - component: {fileID: 1650463123}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8241,7 +8242,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650463116}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4da371b728b744341ab978dd9d79d2d9, type: 3}
   m_Name: 
@@ -8284,6 +8285,23 @@ MonoBehaviour:
   _attackPanel: {fileID: 2102390508}
   _defensePanel: {fileID: 1019337481}
   _bonusPanel: {fileID: 1650845575}
+--- !u!114 &1650463123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650463116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89030970cda50d748b6245d2da2348f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: 1c81dbdef53ac954887d91095e706bed, type: 2}
+  _currentStrength: {fileID: 0}
+  _potentialStrength: {fileID: 0}
+  _currentSpeed: {fileID: 0}
+  _potentialSpeed: {fileID: 0}
 --- !u!1 &1650845575
 GameObject:
   m_ObjectHideFlags: 0
@@ -10764,6 +10782,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DataPersistanceManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239540919515751010, guid: 8a559ba6915be114eac09c123708c497,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5652105639222237908, guid: 8a559ba6915be114eac09c123708c497,
         type: 3}

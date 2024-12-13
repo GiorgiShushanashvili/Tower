@@ -46,14 +46,19 @@ public class DataPersistanceManager : MonoBehaviour
             NewGame();
         }
 
-        GlobalVariables._damageStrengthForPlayer=playerData.damageStrength;
+        /*GlobalVariables._damageStrengthForPlayer=playerData.damageStrength;
         GlobalVariables._bulletSpeedForPlayer=playerData.bulletSpeed;
         GlobalVariables._maxHealth=playerData.TowerData.maxHealth;
         GlobalVariables._regeneration=playerData.TowerData.regeneration;
-        GlobalVariables._regenerationInterval=playerData.TowerData.regenerationInterval;
-        GlobalVariables._damageResistance=playerData.TowerData.damageResistance;
+        GlobalVariables._regenerationInterval=playerData.TowerData.regenerationTimeInterval;
+        GlobalVariables._damageResistance=playerData.TowerData.damageResistance;*/
         //GlobalVariables._killBonus=playerData.TowerData.bonusData.killBonus;
         //GlobalVariables._waveBonus=playerData.TowerData.bonusData.waveBonus;
+    }
+
+    public PlayerData GetLevelInfo()
+    {
+        return this.playerData;
     }
 
     public void SaveGame()
@@ -68,7 +73,7 @@ public class DataPersistanceManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        SaveGame();
+        //SaveGame();
     }
 
     private List<IDataPersistance> FindAllDataPersistantObjects()
