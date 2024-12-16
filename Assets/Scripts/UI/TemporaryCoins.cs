@@ -10,8 +10,8 @@ public class TemporaryCoins : MonoBehaviour
 
     public static TemporaryCoins Instance;
 
-    public static int _silverCoins=50;
-    public static int _goldCoins;
+    public static float _silverCoins=50;
+    public static float _goldCoins;
 
     [Header("Silver Coin")]
     private int _walkingZombiePrizeSilver = 3;
@@ -33,7 +33,7 @@ public class TemporaryCoins : MonoBehaviour
 
     private void Start()
     {
-        _goldCoins = PlayerPrefs.GetInt("ActualGold", _goldCoins);
+        _goldCoins = PlayerPrefs.GetFloat("ActualGold", _goldCoins);
     }
 
     private void FixedUpdate()
@@ -59,7 +59,7 @@ public class TemporaryCoins : MonoBehaviour
 
     private void SaveGoldCoins()
     {
-        PlayerPrefs.SetInt("ActualGold", _goldCoins);
+        PlayerPrefs.GetFloat("ActualGold", _goldCoins);
         PlayerPrefs.Save();
     }
 

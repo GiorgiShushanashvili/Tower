@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class TowerHealth : MonoBehaviour
 {
     public static TowerHealth towerHealth;
 
     [SerializeField] private TextMeshProUGUI _towerHealth;
+    [SerializeField] GameData _gameData;
+
+    private UpdateHandler _updateHandler;
 
     private float _maxHealth;
     private float _currentHealth;
@@ -20,23 +24,31 @@ public class TowerHealth : MonoBehaviour
 
     void Start()
     {
-        _intervalForRegeneration = GlobalVariables._regenerationInterval;
-        _maxHealth=GlobalVariables._maxHealth;
-        _regenrate = GlobalVariables._regeneration;
+        _updateHandler = new UpdateHandler();
         if (towerHealth == null)
         {
             towerHealth = this;
         }
-        RefreshLife();
+
+        GlobalVariables._maxHealth = _updateHandler.CalculateUpgrade(_gameData._minHealth, _gameData._maxHealth, 0, _gameData._maxLevel,
+            DataPersistanceManager.Instance.GetLevelInfo().MaxHealthLvl);
+
+        _maxHealth = GlobalVariables._maxHealth;
+        _intervalForRegeneration = GlobalVariables._regenerationInterval;
+         _regenrate = GlobalVariables._regeneration;
+         RefreshLife();
     }
-
-
 
 
     public void CurrentLife(float damage)
     {
         _currentHealth -= (damage-damage*GlobalVariables._damageResistance);
-        _towerHealth.text = Math.Round(_currentHealth, 2).ToString();
+        _towerHealth.text = Math.Round(_currentHealth, 1).ToString();
+        if (Die())
+        {
+            RefreshLife();
+            GameManager.Instance.GameOver();
+        }
         if (_currentHealth < _maxHealth&&!_isRegenerating)
         {
             StartCoroutine(Heal());
@@ -51,9 +63,8 @@ public class TowerHealth : MonoBehaviour
     public void RefreshLife()
     {
         _currentHealth = _maxHealth;
-        _towerHealth.text = _maxHealth.ToString();
+        _towerHealth.text =Math.Round(_maxHealth,1).ToString();
     }
-
 
     private IEnumerator Heal()
     {
@@ -63,7 +74,7 @@ public class TowerHealth : MonoBehaviour
             yield return new WaitForSeconds(_intervalForRegeneration);
             float healthToAdd = Mathf.Min(_regenrate, _maxHealth - _currentHealth);
             _currentHealth += healthToAdd;
-            _towerHealth.text = _currentHealth.ToString();
+            _towerHealth.text =Math.Round(_currentHealth,1).ToString();
 
             if (_currentHealth >= _maxHealth)
             {

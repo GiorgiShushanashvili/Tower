@@ -9,8 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _currentKillBonus;
     [SerializeField] TextMeshProUGUI _potentialKillBonus;
 
-    private int _killBonusToIncrease = 4;
-    private int _nextKillBonuss;
+    private float _killBonusToIncrease = 4;
+    private float _nextKillBonuss;
     private int _killBonusUpgradePrice = 4;
 
 

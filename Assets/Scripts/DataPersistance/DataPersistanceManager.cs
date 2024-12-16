@@ -35,6 +35,7 @@ public class DataPersistanceManager : MonoBehaviour
     public void NewGame()
     {
         this.playerData=new PlayerData();
+        SaveGame();
     }
 
     public void LoadGame()
@@ -45,19 +46,14 @@ public class DataPersistanceManager : MonoBehaviour
         {
             NewGame();
         }
-
-        /*GlobalVariables._damageStrengthForPlayer=playerData.damageStrength;
-        GlobalVariables._bulletSpeedForPlayer=playerData.bulletSpeed;
-        GlobalVariables._maxHealth=playerData.TowerData.maxHealth;
-        GlobalVariables._regeneration=playerData.TowerData.regeneration;
-        GlobalVariables._regenerationInterval=playerData.TowerData.regenerationTimeInterval;
-        GlobalVariables._damageResistance=playerData.TowerData.damageResistance;*/
-        //GlobalVariables._killBonus=playerData.TowerData.bonusData.killBonus;
-        //GlobalVariables._waveBonus=playerData.TowerData.bonusData.waveBonus;
     }
 
     public PlayerData GetLevelInfo()
     {
+        if (this.playerData == null)
+        {
+            NewGame();
+        }
         return this.playerData;
     }
 

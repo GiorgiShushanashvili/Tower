@@ -5,69 +5,134 @@ using UnityEngine;
 
 public class PermanentUpgradeManager : MonoBehaviour
 {
-    [Header("Kill Bonus")]
-    [SerializeField] TextMeshProUGUI _currentKillBonus;
-    [SerializeField] TextMeshProUGUI _potentialKillBonus;
+    [SerializeField] GameData gameData;
+    private UpdateHandler handler;
 
-    /*private int _killBonusToIncrease;
-    private int _nextKillBonuss;
-    private int _killBonusUpgradePrice = 4;*/
+    [Header("Strength")]
+    [SerializeField] TextMeshProUGUI _currentStrength;
+    [SerializeField] TextMeshProUGUI _potentialStrength;
 
+    [Header("Speed")]
+    [SerializeField] TextMeshProUGUI _currentSpeed;
+    [SerializeField] TextMeshProUGUI _potentialSpeed;
 
     [Header("Damage Resistance")]
     [SerializeField] TextMeshProUGUI _currentResistance;
     [SerializeField] TextMeshProUGUI _potentialResistance;
 
-    /*private float _resistanceToIncrease = 0.005f;
-    private float _nextResistance;
-    private int _resistanceUpgradePrice = 4;*/
-
+    [Header("RegenerationInterval")]
+    [SerializeField] TextMeshProUGUI _currentInterval;
+    [SerializeField] TextMeshProUGUI _potentialInterval;
 
     [Header("Regeneration Range")]
     [SerializeField] TextMeshProUGUI _currentRangeForRegeneration;
     [SerializeField] TextMeshProUGUI _potentialRangeForRegeneration;
 
-    private float _rangeToIncrease = 1;
-    private float _nextRegenRange;
-    private int _rangeUpgradePrice = 4;
-
-    [Header("RegenerationInterval")]
-    [SerializeField] TextMeshProUGUI _currentInterval;
-    [SerializeField] TextMeshProUGUI _potentialInterval;
-
-    private float _intervalToDecrease = 0.05f;
-    private float _nextInterval;
-    private int _intervalPrice = 4;
-
-
-    [Header("Strength")]
-    [SerializeField] TextMeshProUGUI _currentStrength;
-    [SerializeField] TextMeshProUGUI _currentStrengthForMainStats;
-    [SerializeField] TextMeshProUGUI _potentialStrength;
-
-    private float _strengthToIncrease = 0.5f;
-    private float _nextStrength;
-    private int _strengthPrice = 4;
-
-    [Header("Speed")]
-    [SerializeField] TextMeshProUGUI _currentSpeed;
-    [SerializeField] TextMeshProUGUI _currentSpeedForMainStats;
-    [SerializeField] TextMeshProUGUI _potentialSpeed;
-
-    private float _speedToIncrease;
-    private float _nextSpeed;
-    private int _speedPrice;
-
-
     [Header("HealthBar")]
-    [SerializeField] TextMeshProUGUI _health;
+    [SerializeField] TextMeshProUGUI _currentHealth;
+    [SerializeField] TextMeshProUGUI _potentialHealth;
 
-    [Header("Coins")]
+    [Header("Kill Bonus")]
+    [SerializeField] TextMeshProUGUI _currentKillBonus;
+    [SerializeField] TextMeshProUGUI _potentialKillBonus;
+
+    //[Header("Coins")]
     //[SerializeField] TextMeshProUGUI _temporaryCoins;
-    [SerializeField] TextMeshProUGUI _persistentCoins;
+    //[SerializeField] TextMeshProUGUI _persistentCoins;
 
     private void Start()
     {
-        
+        handler = new UpdateHandler();
+        SetInitialStats();
     }
+
+    private void SetInitialStats()
+    {
+        handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().PlayerStrengthLvl, gameData._maxLevel,
+            gameData._minDamageStrength, gameData._maxDamageStrength, ref GlobalVariables._damageStrengthForPlayer,
+            ref _currentStrength, ref _potentialStrength);
+
+        handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().BulletSpeedLvl, gameData._maxLevel,
+            gameData._minBulletSpeed, gameData._maxBulletSpeed, ref GlobalVariables._bulletSpeedForPlayer,
+            ref _currentSpeed, ref _potentialSpeed);
+
+        handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().MaxHealthLvl, gameData._maxLevel,
+            gameData._minHealth, gameData._maxHealth, ref GlobalVariables._maxHealth,
+            ref _currentHealth, ref _potentialHealth);
+
+        handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().DamageResistanceLvl, gameData._maxLevel,
+            gameData._minDamageResistance, gameData._maxDamageResistance, ref GlobalVariables._damageResistance,
+            ref _currentResistance, ref _potentialResistance);
+
+        handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().RegenerationTimeIntervalLvl, gameData._maxLevel,
+            gameData._worstRegenerationTimeInterval, gameData._bestRgenerationTimeInterval, ref GlobalVariables._regenerationInterval,
+            ref _currentInterval, ref _potentialInterval);
+
+        handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().RegenerationLvl, gameData._maxLevel,
+            gameData._minRegeneration, gameData._maxRegeneration, ref GlobalVariables._regeneration,
+            ref _currentRangeForRegeneration, ref _potentialRangeForRegeneration);
+
+        handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().KillBonusLvl, gameData._maxLevel,
+            gameData._minKillBonus, gameData._maxKillBonus, ref GlobalVariables._killBonus,
+            ref _currentKillBonus, ref _potentialKillBonus);
+    }
+
+    #region
+    public void UpgradePlayerStrength()
+    {
+        handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().PlayerStrengthLvl, gameData._maxLevel,
+            gameData._minDamageStrength, gameData._maxDamageStrength, ref GlobalVariables._damageStrengthForPlayer,
+            ref _currentStrength, ref _potentialStrength);
+
+        DataPersistanceManager.Instance.SaveGame();
+    }
+
+    public void UpgradeBulletSpeed()
+    {
+        handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().BulletSpeedLvl, gameData._maxLevel,
+            gameData._minBulletSpeed, gameData._maxBulletSpeed, ref GlobalVariables._bulletSpeedForPlayer,
+            ref _currentSpeed, ref _potentialSpeed);
+        DataPersistanceManager.Instance.SaveGame();
+    }
+
+    public void UpgradeHealth()
+    {
+        handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().MaxHealthLvl, gameData._maxLevel,
+            gameData._minHealth, gameData._maxHealth, ref GlobalVariables._maxHealth,
+            ref _currentHealth, ref _potentialHealth);
+        DataPersistanceManager.Instance.SaveGame();
+    }
+
+    public void UpgradeDamagdeResistance()
+    {
+        handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().DamageResistanceLvl, gameData._maxLevel,
+            gameData._minDamageResistance, gameData._maxDamageResistance, ref GlobalVariables._damageResistance,
+            ref _currentResistance, ref _potentialResistance);
+        DataPersistanceManager.Instance.SaveGame();
+    }
+
+    public void UpgradeRegenerationInterval()
+    {
+        handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().RegenerationTimeIntervalLvl, gameData._maxLevel,
+            gameData._worstRegenerationTimeInterval, gameData._bestRgenerationTimeInterval, ref GlobalVariables._regenerationInterval,
+            ref _currentInterval, ref _potentialInterval);
+        DataPersistanceManager.Instance.SaveGame();
+    }
+
+    public void UpgradeRegenartionRange()
+    {
+        handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().RegenerationLvl, gameData._maxLevel,
+            gameData._minRegeneration, gameData._maxRegeneration, ref GlobalVariables._regeneration,
+            ref _currentRangeForRegeneration, ref _potentialRangeForRegeneration);
+        DataPersistanceManager.Instance.SaveGame();
+    }
+
+    public void UpgradeKillBonus()
+    {
+        handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().KillBonusLvl, gameData._maxLevel,
+            gameData._minKillBonus, gameData._maxKillBonus, ref GlobalVariables._killBonus,
+            ref _currentKillBonus, ref _potentialKillBonus);
+        DataPersistanceManager.Instance.SaveGame();
+    }
+    #endregion
 }

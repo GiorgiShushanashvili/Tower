@@ -29,6 +29,6 @@ public class GameData : ScriptableObject
     public int _minWaveBonus = 15;
     public int _maxWaveBonus = 120;
 
-    public int _minLevel = 0;
+    public int _minLevel = 1;
     public int _maxLevel = 30;
 }

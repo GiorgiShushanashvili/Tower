@@ -5,16 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public int PlayerStrengthLvl;
-    public int BulletSpeedLvl;
+    public int PlayerStrengthLvl=0;
+    public int BulletSpeedLvl=0;
 
-    public int MaxHealthLvl;
-    public int RegenerationLvl;
-    public int RegenerationTimeIntervalLvl;
-    public int DamageResistanceLvl;
+    public int MaxHealthLvl = 0;
+    public int RegenerationLvl = 0;
+    public int RegenerationTimeIntervalLvl = 0;
+    public int DamageResistanceLvl = 0;
 
-    public int WaveBonusLvl;
-    public int KillBonusLvl;
+    public int WaveBonusLvl = 0;
+    public int KillBonusLvl = 0;
 
 
 

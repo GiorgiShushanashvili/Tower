@@ -18,20 +18,20 @@ public class LevelGenerator : MonoBehaviour
     List<GameObject> levels = new List<GameObject>();
 
 
-    private void Start()
+    private void Awake()
     {
-
         GameObject firstTile = Instantiate(LevelTile, new Vector3(0, levels.Count, 0), Quaternion.identity);
-
         BlockItemClass blockItem = firstTile.GetComponent<BlockItemClass>();
+        levels.Add(firstTile);
         _renderer = blockItem.CylinderTop.GetComponent<MeshRenderer>();
         _renderer2 = blockItem.CylinderMain.GetComponent<MeshRenderer>();
 
-        firstTile.transform.SetParent(_parent);
-        levels.Add(firstTile);
         _heightDelta = (_renderer.bounds.size.y + _renderer2.bounds.size.y);
-        GameObject player= Instantiate(_player,new Vector3(0,_heightDelta,0),Quaternion.identity);
-        player.transform.SetParent(firstTile.transform);
+        GameObject player = Instantiate(_player, new Vector3(0, _heightDelta, 0), Quaternion.identity);
+        //player.transform.SetParent(firstTile.transform);
+        firstTile.transform.SetParent(_parent);
+
+        _heightDelta = (_renderer.bounds.size.y + _renderer2.bounds.size.y);
     }
 
     void AddTile()
@@ -47,7 +47,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -55,16 +55,16 @@ public class LevelGenerator : MonoBehaviour
         }
         if (TowerHealth.towerHealth.Die())
         {
-            ReduceTile();
+            //ReduceTile();
             TowerHealth.towerHealth.RefreshLife();
         }
         if (levels.Count == 0)
         {
             AddTile();
-            GameManager.Instance.GameOver();
+            //GameManager.Instance.GameOver();
         }
 
-    }
+    }*/
 
     public void ReduceTile()
     {
