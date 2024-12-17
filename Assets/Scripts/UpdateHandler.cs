@@ -55,5 +55,15 @@ public class UpdateHandler : MonoBehaviour
             }
         }
     }
+
+    public void SetPricesForLiveUpgrade(int curLvl,int maxLvl,ref float ActualValue,ref TextMeshProUGUI PriceToSet)
+    {
+        if (curLvl < maxLvl)
+        {
+            Debug.Log("shemovida");
+            ActualValue = ActualValue + (float)curLvl;
+            PriceToSet.text=ActualValue.ToString();
+        }
+    }
     
 }

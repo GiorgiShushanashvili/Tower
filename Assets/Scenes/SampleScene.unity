@@ -9062,19 +9062,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 1c81dbdef53ac954887d91095e706bed, type: 2}
   _currentStrength: {fileID: 1816946484}
+  _strengthForMainPanel: {fileID: 813537991}
   _potentialStrength: {fileID: 1067828069}
+  _StrengthUpgradeCost: {fileID: 1431956235}
   _currentSpeed: {fileID: 2018056222}
+  _speedForMainPanel: {fileID: 2117417002}
   _potentialSpeed: {fileID: 827998417}
+  _bulletSpeedUpgradeCost: {fileID: 282956118}
   _currentResistance: {fileID: 1559403554}
   _potentialResistance: {fileID: 1327162936}
+  _damageResistanceUpgradeCost: {fileID: 1954341119}
   _currentInterval: {fileID: 1038273541}
   _potentialInterval: {fileID: 1558774470}
+  _regenerationIntervalUpgradeCost: {fileID: 750438593}
   _currentRangeForRegeneration: {fileID: 823099828}
   _potentialRangeForRegeneration: {fileID: 1619843231}
+  _regenerationUpgradeCost: {fileID: 466974441}
   _currentHealth: {fileID: 12152929}
   _potentialHealth: {fileID: 801891405}
+  _healthUpgradeCost: {fileID: 12552099}
   _currentKillBonus: {fileID: 1028983629}
   _potentialKillBonus: {fileID: 1045924731}
+  _killBonusUpgradeCost: {fileID: 1100112655}
+  _silverCoins: {fileID: 793452143}
+  _goldCoins: {fileID: 1589961575}
 --- !u!1 &1650845575
 GameObject:
   m_ObjectHideFlags: 0

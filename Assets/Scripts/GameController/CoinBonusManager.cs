@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinBonusManager : MonoBehaviour
 {
-    private void Update()
+    private void FixedUpdate()
     {
         AddCoinsByParticularKills();
     }
