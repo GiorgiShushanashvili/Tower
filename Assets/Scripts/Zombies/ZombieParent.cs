@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,22 +14,28 @@ public class ZombieParent : MonoBehaviour
 
     Transform child;
 
+    public ZombieType type { get; set; }
     public float _health { get;protected set; }
-    public float _speed { get; protected set; }
+    public float _speed { get; set; }
     public int _damage { get; protected set; }
     public bool _isMoving { get; protected set; }
+    //public float _timeInterval { get;set; }
 
     private void Start()
     {
         child = _cube.transform.Find("Cylinder");
         _cubeCollider = _cube.GetComponent<MeshCollider>();
-        _health = 100f;
-        _damage = 3;
-        _speed = 3f;
+        //_health = 100f;
         _isMoving = true;
     }
 
     public virtual void ZombieMove() { }
 
     public virtual void TakeDamage(float damage) { }
+
+}
+public enum ZombieType
+{
+    Warrior = 1,
+    Shooter = 2
 }

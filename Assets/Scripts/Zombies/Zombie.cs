@@ -9,6 +9,7 @@ public class Zombie : ZombieParent
         _health = 5f;
         _speed = 0.3f;
         _isMoving = true;
+        //type = ZombieType.Warrior;
     }
     void Update()
     {

@@ -7,8 +7,8 @@ public static class GlobalVariables
     public static float _damageStrengthForPlayer;
     public static float _bulletSpeedForPlayer;
 
-    public static float _damageForWalkingZombie = 1;
-    public static float _damageForZombieWIthStone = 1;
+    public static float _damageForWalkingZombie;
+    public static float _damageForZombieWIthStone;
 
 
     public static float _maxHealth;
