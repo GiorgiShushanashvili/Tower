@@ -15,15 +15,16 @@ public class ShooterZombie : ZombieParent
 
     private void Start()
     {
-        _health = 5;
+        _health = GlobalVariables._healthForShootergZombie;
         _speed = 1f;
-        _damage = 3;
+        //_damage = 3;
         _isMoving = true;
         _animator.enabled = true;
 
         _forwardForce = 4f;
         _upForce = 4f;
 
+        type = ZombieType.Shooter;
         _shooterChildStone = transform.Find("Cube");
         _shooterChildStone.gameObject.SetActive(false);
     }

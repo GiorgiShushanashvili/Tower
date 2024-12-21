@@ -56,8 +56,9 @@ public class UiHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI _silverCoins;
     [SerializeField] TextMeshProUGUI _goldCoins;
  
-    private void Start()
+    private void Awake()
     {
+
         handler = new UpdateHandler();
         _goldCoins.text = TemporaryCoins._goldCoins.ToString();
         _silverCoins.text = TemporaryCoins._silverCoins.ToString();
@@ -104,6 +105,7 @@ public class UiHandler : MonoBehaviour
         handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().KillBonusLvl, gameData._maxLevel,
             gameData._minKillBonus, gameData._maxKillBonus, ref GlobalVariables._killBonus,
             ref _currentKillBonus, ref _potentialKillBonus);
+
     }
 
     private void SetInitialsPrices()
@@ -151,6 +153,9 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialBulletSpeedPrice<=TemporaryCoins._silverCoins)
         {
+            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            _silverCoins.text = TemporaryCoins._silverCoins.ToString();
+
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().BulletSpeedLvl, gameData._maxLevel,
             gameData._minBulletSpeed, gameData._maxBulletSpeed, ref GlobalVariables._bulletSpeedForPlayer,
             ref _currentSpeed, ref _potentialSpeed);
@@ -164,6 +169,9 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialHealthUpgradePrice <= TemporaryCoins._silverCoins)
         {
+            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            _silverCoins.text = TemporaryCoins._silverCoins.ToString();
+
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().MaxHealthLvl, gameData._maxLevel,
             gameData._minHealth, gameData._maxHealth, ref GlobalVariables._maxHealth,
             ref _currentHealth, ref _potentialHealth);
@@ -177,6 +185,9 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialDamageResistancePrice <= TemporaryCoins._silverCoins)
         {
+            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            _silverCoins.text = TemporaryCoins._silverCoins.ToString();
+
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().DamageResistanceLvl, gameData._maxLevel,
             gameData._minDamageResistance, gameData._maxDamageResistance, ref GlobalVariables._damageResistance,
             ref _currentResistance, ref _potentialResistance);
@@ -190,6 +201,9 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialRegenerationIntervalPrice <= TemporaryCoins._silverCoins)
         {
+            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            _silverCoins.text = TemporaryCoins._silverCoins.ToString();
+
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().RegenerationTimeIntervalLvl, gameData._maxLevel,
             gameData._worstRegenerationTimeInterval, gameData._bestRgenerationTimeInterval, ref GlobalVariables._regenerationInterval,
             ref _currentInterval, ref _potentialInterval);
@@ -203,6 +217,9 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialRegenerationPrice <= TemporaryCoins._silverCoins)
         {
+            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            _silverCoins.text = TemporaryCoins._silverCoins.ToString();
+
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().RegenerationLvl, gameData._maxLevel,
             gameData._minRegeneration, gameData._maxRegeneration, ref GlobalVariables._regeneration,
             ref _currentRangeForRegeneration, ref _potentialRangeForRegeneration);
@@ -216,6 +233,9 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialKillBonusUpgradePrice <= TemporaryCoins._silverCoins)
         {
+            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            _silverCoins.text = TemporaryCoins._silverCoins.ToString();
+
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().KillBonusLvl, gameData._maxLevel,
             gameData._minKillBonus, gameData._maxKillBonus, ref GlobalVariables._killBonus,
             ref _currentKillBonus, ref _potentialKillBonus);

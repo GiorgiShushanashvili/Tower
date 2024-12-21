@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] GameObject _gameOverCanvas;
+    private UpdateHandler _updateHandler;
+    [SerializeField] private GameData gameData;
 
     private void Awake()
     {
@@ -15,6 +18,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+        _updateHandler = new UpdateHandler();
     }
 
     private void Start()
@@ -31,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        DataPersistanceManager.Instance.LoadGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

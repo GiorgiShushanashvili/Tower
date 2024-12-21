@@ -53,7 +53,7 @@ public class PermanentUpgradeManager : MonoBehaviour
     [Header("Coins")]
     [SerializeField] TextMeshProUGUI _goldCoins;
 
-    private void Start()
+    private void Awake()
     {
         handler = new UpdateHandler();
         _goldCoins.text=TemporaryCoins._goldCoins.ToString();

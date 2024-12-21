@@ -4,11 +4,15 @@ using UnityEngine;
 
 public static class GlobalVariables
 {
+
     public static float _damageStrengthForPlayer;
     public static float _bulletSpeedForPlayer;
 
     public static float _damageForWalkingZombie;
+    public static float _healthForWalkingZombie;
+
     public static float _damageForZombieWIthStone;
+    public static float _healthForShootergZombie;
 
 
     public static float _maxHealth;
@@ -18,4 +22,6 @@ public static class GlobalVariables
 
     public static float _waveBonus;
     public static float _killBonus;
+
+    
 }

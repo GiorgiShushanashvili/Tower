@@ -38,7 +38,7 @@ public class CriticalAreaHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Zombie"))
+        if (other.CompareTag("Zombie")||other.CompareTag("ShooterZombie"))
         {
             if (_criticalAreaZombies.Count == 0)
             { _isMoving = true; }

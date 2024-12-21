@@ -60,7 +60,6 @@ public class UpdateHandler : MonoBehaviour
     {
         if (curLvl < maxLvl)
         {
-            Debug.Log("shemovida");
             ActualValue = ActualValue + (float)curLvl;
             PriceToSet.text=ActualValue.ToString();
         }

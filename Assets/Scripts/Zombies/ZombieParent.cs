@@ -15,7 +15,7 @@ public class ZombieParent : MonoBehaviour
     Transform child;
 
     public ZombieType type { get; set; }
-    public float _health { get;protected set; }
+    public float _health { get; set; }
     public float _speed { get; set; }
     public int _damage { get; protected set; }
     public bool _isMoving { get; protected set; }

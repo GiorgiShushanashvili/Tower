@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
@@ -10,22 +10,26 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private Transform _parent;
 
     private Wave _currentWave;
-    //private List<ZombieParent> zombies;
     private float timeBFRWave;
     private float _radiusForSpawning = 5f;
-    private float _spawnedZombies = 0;
+    private float _createdZombies = 0;
     private float _zombiesToSpawn;
     private int i = 0;
 
+    private bool _isSpawning = false;
+
+    private List<int> nums=new List<int>();
+
     private bool _nextWave;
 
-    private void Awake()
+    private void Start()
     {
         _currentWave=_waves[i];
-        timeBFRWave=_currentWave._timeBeforeWave;
-        StartCoroutine(SpawnEnemy());
-        foreach(float number in _currentWave._numberToSpawn)
+        _currentWave.StartMethod();
+        StartCoroutine(SpawnWave());
+        foreach(var number in _currentWave._numberToSpawn)
         {
+            nums.Add(number);
             _zombiesToSpawn += number;
         }
     }
@@ -41,72 +45,104 @@ public class WaveSpawner : MonoBehaviour
         return spawnPoint;
     }
 
-    private IEnumerator SpawnEnemy()
+    private IEnumerator SpawnWave()
     {
+        if (_isSpawning)
+            yield break;
+        _isSpawning = true;
+
         yield return new WaitForSeconds(_currentWave._timeBeforeWave);
-        while (_zombiesToSpawn > _spawnedZombies)
+        while (_createdZombies < _zombiesToSpawn)
         {
             Vector3 spawnPoint = SpawnHelper();
 
             Vector3 dirToCube = (_cube.position - spawnPoint).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(dirToCube);
 
-            if (_spawnedZombies == _currentWave._range[0])
+            SpawnZombie(spawnPoint,targetRotation);
+
+            if (_createdZombies == _zombiesToSpawn &&i+1<_waves.Length)
             {
-                switch (_currentWave._numberToSpawn[0])
-                {
-                    case > 0f:
-                        if (_currentWave._numberToSpawn[1] > 0)
-                        {
-                            int num = Random.Range(0, _currentWave._enemyPrefabs.Length);
-                            var enemy =Instantiate(_currentWave._enemyPrefabs[num], spawnPoint, targetRotation);
-                            if (enemy.type == ZombieType.Warrior)
-                            {
-                                Debug.Log("walker pirveli");
-                                _currentWave._numberToSpawn[0]--;
-                            }
-                            else
-                            {
-                                Debug.Log("shooter pirveli");
-                                _currentWave._numberToSpawn[1]--;
-                            }
-                        }
-                        else
-                        {
-                            Debug.Log("walker meore");
-                            Instantiate(_currentWave._enemyPrefabs[0].gameObject, spawnPoint, targetRotation);
-                            _currentWave._numberToSpawn[0]--;
-                        }
-                        break;
-
-                    case 0f:
-                        if (_currentWave._numberToSpawn[1] > 0)
-                        {
-                            Debug.Log("shooter bolo");
-                            Instantiate(_currentWave._enemyPrefabs[1].gameObject, spawnPoint, targetRotation);
-                            _currentWave._numberToSpawn[1]--;
-                        }
-                        break;
-
-                }
+                InitializeWaveData();
+                //break;
             }
-            else
+            else if (_createdZombies == _zombiesToSpawn && i + 1 == _waves.Length)
             {
-                Debug.Log("walkkr   bolo");
-                Instantiate(_currentWave._enemyPrefabs[0].gameObject, spawnPoint, targetRotation);
-                _currentWave._numberToSpawn[0]--;
-
-            }
-            _spawnedZombies++;
-
-            if (_spawnedZombies == _zombiesToSpawn)
-            {
-                i++;
-                _currentWave = _waves[i];
                 break;
             }
             yield return new WaitForSeconds(_currentWave._timeIntervalBetweenZombies);
         }
+        _isSpawning = false;
+        Debug.Log("korutine damtavrda");
+    }
+
+
+    private void SpawnZombie(Vector3 spawnPoint,Quaternion targetRotation)
+    {
+        if (_createdZombies >= _currentWave._range[0])
+        {
+            switch (nums[0])
+            {
+                case > 0:
+                    if (nums[1] > 0)
+                    {
+                        int num = Random.Range(0, _currentWave._enemyPrefabs.Length);
+                        var enemy = Instantiate(_currentWave._enemyPrefabs[num], spawnPoint, targetRotation);
+                        _createdZombies++;
+                        if (enemy.tag == "Zombie")
+                        {
+                            nums[0]--; ;
+                        }
+                        else if (enemy.tag == "ShooterZombie")
+                        {
+                            nums[1]--;
+                        }
+                    }
+                    else
+                    {
+                        Instantiate(_currentWave._enemyPrefabs[0].gameObject, spawnPoint, targetRotation);
+                        nums[0]--;
+                        _createdZombies++;
+                    }
+                    break;
+
+                case 0:
+                    if (nums[1]-- > 0)
+                    {
+                        Instantiate(_currentWave._enemyPrefabs[1].gameObject, spawnPoint, targetRotation);
+                        nums[1]--;
+                        _createdZombies++;
+                    }
+                    break;
+
+            }
+        }
+        else
+        {
+            Instantiate(_currentWave._enemyPrefabs[0].gameObject, spawnPoint, targetRotation);
+            nums[0]--;
+            _createdZombies++;
+        }
+    }
+
+    private void InitializeWaveData()
+    {
+        i++;
+        _currentWave = _waves[i];
+        _currentWave.StartMethod();
+        nums.Clear();
+        _zombiesToSpawn = 0;
+        _createdZombies = 0;
+        Debug.Log(_currentWave.name);
+        foreach (var number in _currentWave._numberToSpawn)
+        {
+            nums.Add(number);
+            _zombiesToSpawn += number;
+        }
+        Debug.Log(_zombiesToSpawn);
+        StopCoroutine(SpawnWave());
+        //StartCoroutine(SpawnWave());
+        //break;
     }
 
 
@@ -123,4 +159,8 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
+    /*private void OnDisable()
+    {
+        _currentWave._numberToSpawn[i]  = _originalWave._numberToSpawn[i];
+    }*/
 }

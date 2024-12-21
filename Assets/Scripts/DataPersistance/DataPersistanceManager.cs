@@ -20,14 +20,14 @@ public class DataPersistanceManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
             this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-
+            this.dataPeristanceObjects = FindAllDataPersistantObjects();
         }
     }
 
     private void Start()
     {
         this.fileDataHandler=new FileDataHandler(Application.persistentDataPath,fileName);
-        this.dataPeristanceObjects=FindAllDataPersistantObjects();
+        //this.dataPeristanceObjects=FindAllDataPersistantObjects();
         LoadGame();
     }
 
@@ -58,10 +58,13 @@ public class DataPersistanceManager : MonoBehaviour
     }
 
     public void SaveGame()
-    { 
-        foreach(IDataPersistance dataPersistance in dataPeristanceObjects)
+    {
+        foreach (IDataPersistance dataPersistance in dataPeristanceObjects)
         {
-            dataPersistance.SaveData(ref playerData);
+            if (dataPersistance != null)
+            {
+                dataPersistance.SaveData(ref playerData);
+            }
         }
 
         fileDataHandler.Save(playerData);

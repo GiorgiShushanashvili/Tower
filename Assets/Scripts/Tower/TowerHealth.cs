@@ -33,6 +33,12 @@ public class TowerHealth : MonoBehaviour
         GlobalVariables._maxHealth = _updateHandler.CalculateUpgrade(_gameData._minHealth, _gameData._maxHealth, 0, _gameData._maxLevel,
             DataPersistanceManager.Instance.GetLevelInfo().MaxHealthLvl);
 
+        GlobalVariables._regeneration = _updateHandler.CalculateUpgrade(_gameData._minRegeneration, _gameData._maxRegeneration, 0, _gameData._maxLevel,
+            DataPersistanceManager.Instance.GetLevelInfo().RegenerationLvl);
+
+        GlobalVariables._regenerationInterval = _updateHandler.CalculateUpgrade(_gameData._worstRegenerationTimeInterval, _gameData._bestRgenerationTimeInterval, 0, _gameData._maxLevel,
+            DataPersistanceManager.Instance.GetLevelInfo().RegenerationTimeIntervalLvl);
+
         _maxHealth = GlobalVariables._maxHealth;
         _intervalForRegeneration = GlobalVariables._regenerationInterval;
          _regenrate = GlobalVariables._regeneration;

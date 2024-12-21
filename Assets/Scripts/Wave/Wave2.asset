@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367408de618279945a9ec022f22e76a2, type: 3}
   m_Name: Wave2
   m_EditorClassIdentifier: 
-  _enemyPrefabs: []
-  _timeIntervalBetweenZombies: []
-  _damageStrengthForZombies: []
-  _walkingSpeed: []
+  _enemyPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  _damageStrengthForZombies:
+  - 4
+  - 5
+  _numberToSpawn: 0800000016000000
+  _timeIntervalBetweenZombies: 0
+  _timeBeforeWave: 3
+  _range: 00000000

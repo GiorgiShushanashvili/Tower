@@ -6,10 +6,10 @@ public class Zombie : ZombieParent
 
     private void Start()
     {
-        _health = 5f;
+        _health = GlobalVariables._healthForWalkingZombie;
         _speed = 0.3f;
         _isMoving = true;
-        //type = ZombieType.Warrior;
+        type = ZombieType.Warrior;
     }
     void Update()
     {

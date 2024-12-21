@@ -12,6 +12,7 @@ TagManager:
   - Edge
   - ZombieBullet
   - Stone
+  - ShooterZombie
   layers:
   - Default
   - TransparentFX
