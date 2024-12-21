@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Wave2
   m_EditorClassIdentifier: 
   _enemyPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6071508475215596702, guid: 9000350a53f872b4ea7ca268f24a9519, type: 3}
+  - {fileID: 1850773749881705748, guid: a0ebcfd665a7bba43832b8042c2a435e, type: 3}
   _damageStrengthForZombies:
   - 4
+  - 6
+  _numberToSpawn: 140000000a000000
+  _timeIntervalBetweenZombies: 2.2
+  _timeBeforeWave: 10
+  _range: 06000000
+  _healths:
+  - 7
   - 5
-  _numberToSpawn: 0800000016000000
-  _timeIntervalBetweenZombies: 0
-  _timeBeforeWave: 3
-  _range: 00000000

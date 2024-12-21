@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: WaveScriptableObject
   m_EditorClassIdentifier: 
   _enemyPrefabs: []
-  _timeIntervalBetweenZombies: []
   _damageStrengthForZombies: []
-  _walkingSpeed: []
+  _numberToSpawn: 1300000006000000
+  _timeIntervalBetweenZombies: 1.6
+  _timeBeforeWave: 3
+  _range: 
+  _healths: []

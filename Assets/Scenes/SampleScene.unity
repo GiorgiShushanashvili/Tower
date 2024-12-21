@@ -2209,6 +2209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameOverCanvas: {fileID: 488108937}
+  gameData: {fileID: 11400000, guid: 1c81dbdef53ac954887d91095e706bed, type: 2}
 --- !u!4 &415454655
 Transform:
   m_ObjectHideFlags: 0

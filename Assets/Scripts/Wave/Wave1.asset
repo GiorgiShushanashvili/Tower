@@ -17,8 +17,11 @@ MonoBehaviour:
   - {fileID: 1850773749881705748, guid: a0ebcfd665a7bba43832b8042c2a435e, type: 3}
   _damageStrengthForZombies:
   - 2
-  - 3
+  - 4
   _numberToSpawn: 1000000004000000
-  _timeIntervalBetweenZombies: 1.9
-  _timeBeforeWave: 3
+  _timeIntervalBetweenZombies: 2
+  _timeBeforeWave: 4
   _range: 05000000
+  _healths:
+  - 5
+  - 3
