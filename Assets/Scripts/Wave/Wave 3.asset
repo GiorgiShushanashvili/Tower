@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 367408de618279945a9ec022f22e76a2, type: 3}
-  m_Name: Wave2
+  m_Name: Wave 3
   m_EditorClassIdentifier: 
   _enemyPrefabs:
   - {fileID: 6071508475215596702, guid: 9000350a53f872b4ea7ca268f24a9519, type: 3}
   - {fileID: 1850773749881705748, guid: a0ebcfd665a7bba43832b8042c2a435e, type: 3}
   _damageStrengthForZombies:
-  - 4
   - 6
+  - 8
   _numberToSpawn: 140000000a000000
-  _timeIntervalBetweenZombies: 2.2
-  _timeBeforeWave: 10
-  _range: 06000000
+  _timeIntervalBetweenZombies: 1.7
+  _timeBeforeWave: 4
+  _range: 08000000
   _healths:
+  - 9
   - 7
-  - 5

@@ -1,37 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI _waveNumber;
     [SerializeField] Wave[] _waves;
     [SerializeField] private Transform _cube;
     [SerializeField] private Transform _parent;
 
     private Wave _currentWave;
-    private float timeBFRWave;
     private float _radiusForSpawning = 5f;
-    private float _createdZombies = 0;
+    private float _createdZombies;
     private float _zombiesToSpawn;
     private int i = 0;
-
-    private bool _isSpawning = false;
-
     private List<int> nums=new List<int>();
 
-    private bool _nextWave;
 
     private void Start()
     {
-        _currentWave=_waves[i];
-        _currentWave.StartMethod();
+        _waveNumber.alpha = 0f;
         StartCoroutine(SpawnWave());
-        foreach(var number in _currentWave._numberToSpawn)
-        {
-            nums.Add(number);
-            _zombiesToSpawn += number;
-        }
     }
 
     private Vector3 SpawnHelper()
@@ -47,35 +38,64 @@ public class WaveSpawner : MonoBehaviour
 
     private IEnumerator SpawnWave()
     {
-        if (_isSpawning)
-            yield break;
-        _isSpawning = true;
-
-        yield return new WaitForSeconds(_currentWave._timeBeforeWave);
-        while (_createdZombies < _zombiesToSpawn)
+        while(i< _waves.Length)
         {
-            Vector3 spawnPoint = SpawnHelper();
-
-            Vector3 dirToCube = (_cube.position - spawnPoint).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(dirToCube);
-
-            SpawnZombie(spawnPoint,targetRotation);
-
-            if (_createdZombies == _zombiesToSpawn &&i+1<_waves.Length)
+            _currentWave = _waves[i];
+            _currentWave.StartMethod();
+            nums.Clear();
+            _zombiesToSpawn = 0;
+            _createdZombies = 0;
+            CriticalAreaHandler._killedZombiesInWave = 0;
+            foreach (var number in _currentWave._numberToSpawn)
             {
-                InitializeWaveData();
-                //break;
+                nums.Add(number);
+                _zombiesToSpawn += number;
             }
-            else if (_createdZombies == _zombiesToSpawn && i + 1 == _waves.Length)
+            yield return new WaitForSeconds(_currentWave._timeBeforeWave);
+            StartCoroutine(ShowWaveMessage(i+1));
+
+            while (_createdZombies < _zombiesToSpawn)
             {
-                break;
+                Vector3 spawnPoint = SpawnHelper();
+
+                Vector3 dirToCube = (_cube.position - spawnPoint).normalized;
+                Quaternion targetRotation = Quaternion.LookRotation(dirToCube);
+
+                SpawnZombie(spawnPoint, targetRotation);
+                yield return new WaitForSeconds(_currentWave._timeIntervalBetweenZombies);
             }
-            yield return new WaitForSeconds(_currentWave._timeIntervalBetweenZombies);
+
+            yield return new WaitUntil(() => CriticalAreaHandler._killedZombiesInWave == _createdZombies);
+            CoinBonusManager.instance.AddCoinsByDefeatingWave();
+            i++;
+            if (i == _waves.Length)
+            {
+                Debug.Log("game finished");
+            }
         }
-        _isSpawning = false;
-        Debug.Log("korutine damtavrda");
     }
 
+    IEnumerator ShowWaveMessage(int numberOfWave)
+    {
+        _waveNumber.text = "Wave " + numberOfWave;
+        StartCoroutine(FadeTextAlpha(1));
+        yield return new WaitForSeconds(2.5f);
+        StartCoroutine(FadeTextAlpha(0));
+    }
+
+    private IEnumerator FadeTextAlpha(float targetAlpha)
+    {
+        float startAlpha=_waveNumber.color.a;
+        float elaped = 0f;
+        float duration = 1f;
+        while (elaped < duration)
+        {
+            elaped += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, elaped / duration);
+            _waveNumber.alpha = alpha;
+            yield return null;
+        }
+    }
 
     private void SpawnZombie(Vector3 spawnPoint,Quaternion targetRotation)
     {
@@ -124,43 +144,4 @@ public class WaveSpawner : MonoBehaviour
             _createdZombies++;
         }
     }
-
-    private void InitializeWaveData()
-    {
-        i++;
-        _currentWave = _waves[i];
-        _currentWave.StartMethod();
-        nums.Clear();
-        _zombiesToSpawn = 0;
-        _createdZombies = 0;
-        Debug.Log(_currentWave.name);
-        foreach (var number in _currentWave._numberToSpawn)
-        {
-            nums.Add(number);
-            _zombiesToSpawn += number;
-        }
-        Debug.Log(_zombiesToSpawn);
-        StopCoroutine(SpawnWave());
-        //StartCoroutine(SpawnWave());
-        //break;
-    }
-
-
-    void ManageWave()
-    {
-        i++;
-        if (i<_waves.Length)
-        {
-            _currentWave = _waves[i];
-        }
-        else
-        {
-            //you win
-        }
-    }
-
-    /*private void OnDisable()
-    {
-        _currentWave._numberToSpawn[i]  = _originalWave._numberToSpawn[i];
-    }*/
 }

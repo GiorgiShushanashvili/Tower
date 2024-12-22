@@ -9,6 +9,7 @@ public class CriticalAreaHandler : MonoBehaviour
 
     public bool _isMoving = false;
     public static int _killedZombies;
+    public static int _killedZombiesInWave;
 
     private void Awake()
     {
@@ -50,6 +51,7 @@ public class CriticalAreaHandler : MonoBehaviour
     public void RemoveZombie()
     {
         _killedZombies++;
+        _killedZombiesInWave++;
         _criticalAreaZombies.RemoveAt(0);
 
         if (_criticalAreaZombies.Count> 0)

@@ -52,6 +52,12 @@ public class UiHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI _killBonusUpgradeCost;
     private float _initialKillBonusUpgradePrice = 4;
 
+    [Header("wave Bonus")]
+    [SerializeField] TextMeshProUGUI _currentWaveBonus;
+    [SerializeField] TextMeshProUGUI _potentialWaveBonus;
+    [SerializeField] TextMeshProUGUI _waveBonusUpgradeCost;
+    private float _initialWaveBonusUpgradePrice = 4;
+
     [Header("Coins")]
     [SerializeField] TextMeshProUGUI _silverCoins;
     [SerializeField] TextMeshProUGUI _goldCoins;
@@ -106,6 +112,10 @@ public class UiHandler : MonoBehaviour
             gameData._minKillBonus, gameData._maxKillBonus, ref GlobalVariables._killBonus,
             ref _currentKillBonus, ref _potentialKillBonus);
 
+        handler.SetInitialValues(DataPersistanceManager.Instance.GetLevelInfo().WaveBonusLvl, gameData._maxLevel,
+            gameData._minWaveBonus, gameData._maxWaveBonus, ref GlobalVariables._waveBonus,
+            ref _currentWaveBonus, ref _potentialWaveBonus);
+
     }
 
     private void SetInitialsPrices()
@@ -130,6 +140,9 @@ public class UiHandler : MonoBehaviour
 
         handler.SetPricesForLiveUpgrade(DataPersistanceManager.Instance.GetLevelInfo().KillBonusLvl, gameData._maxLevel,
             ref _initialKillBonusUpgradePrice, ref _killBonusUpgradeCost);
+
+        handler.SetPricesForLiveUpgrade(DataPersistanceManager.Instance.GetLevelInfo().WaveBonusLvl, gameData._maxLevel,
+            ref _initialWaveBonusUpgradePrice, ref _waveBonusUpgradeCost);
     }
 
     #region
@@ -242,6 +255,22 @@ public class UiHandler : MonoBehaviour
 
             handler.SetPricesForLiveUpgrade(DataPersistanceManager.Instance.GetLevelInfo().KillBonusLvl, gameData._maxLevel,
                 ref _initialKillBonusUpgradePrice, ref _killBonusUpgradeCost);
+        }
+    }
+
+    public void UpgradeWaveBonus()
+    {
+        if (_initialWaveBonusUpgradePrice <= TemporaryCoins._silverCoins)
+        {
+            TemporaryCoins._silverCoins -= _initialWaveBonusUpgradePrice;
+            _silverCoins.text = TemporaryCoins._silverCoins.ToString();
+
+            handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().WaveBonusLvl, gameData._maxLevel,
+            gameData._minWaveBonus, gameData._maxWaveBonus, ref GlobalVariables._waveBonus,
+            ref _currentWaveBonus, ref _potentialWaveBonus);
+
+            handler.SetPricesForLiveUpgrade(DataPersistanceManager.Instance.GetLevelInfo().WaveBonusLvl, gameData._maxLevel,
+                ref _initialWaveBonusUpgradePrice, ref _waveBonusUpgradeCost);
         }
     }
     #endregion
