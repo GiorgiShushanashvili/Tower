@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367408de618279945a9ec022f22e76a2, type: 3}
+  m_Name: Wave 4
+  m_EditorClassIdentifier: 
+  _enemyPrefabs:
+  - {fileID: 6071508475215596702, guid: 9000350a53f872b4ea7ca268f24a9519, type: 3}
+  - {fileID: 1850773749881705748, guid: a0ebcfd665a7bba43832b8042c2a435e, type: 3}
+  _damageStrengthForZombies:
+  - 7
+  - 9
+  _numberToSpawn: 190000000c000000
+  _timeIntervalBetweenZombies: 1.6
+  _timeBeforeWave: 4
+  _range: 08000000
+  _healths:
+  - 10
+  - 8

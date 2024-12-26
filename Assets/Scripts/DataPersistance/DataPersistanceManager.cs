@@ -21,15 +21,15 @@ public class DataPersistanceManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
             this.dataPeristanceObjects = FindAllDataPersistantObjects();
+            LoadGame();
         }
     }
 
-    private void Start()
+    /*private void Start()
     {
         this.fileDataHandler=new FileDataHandler(Application.persistentDataPath,fileName);
-        //this.dataPeristanceObjects=FindAllDataPersistantObjects();
         LoadGame();
-    }
+    }*/
 
 
     public void NewGame()

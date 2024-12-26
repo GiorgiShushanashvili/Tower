@@ -38,4 +38,9 @@ public class GameManager : MonoBehaviour
         DataPersistanceManager.Instance.LoadGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void MainMenu()
+    {
+        DataPersistanceManager.Instance.LoadGame();
+        SceneManager.LoadScene("MainMenu");
+    }
 }
