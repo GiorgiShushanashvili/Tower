@@ -10,13 +10,14 @@ public class ShooterZombie : ZombieParent
     [SerializeField] Rigidbody _stoneRb;
     [SerializeField] Transform _shooterChildStone;
 
+    public float speed;
     private float _forwardForce;
     private float _upForce;
 
     private void Start()
     {
         _health = GlobalVariables._healthForShootergZombie;
-        _speed = 1f;
+        _speed = speed;
         //_damage = 3;
         _isMoving = true;
         _animator.enabled = true;

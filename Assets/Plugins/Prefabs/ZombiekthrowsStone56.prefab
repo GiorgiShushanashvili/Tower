@@ -439,6 +439,7 @@ MonoBehaviour:
   _stoneRb: {fileID: 7202057655874222964, guid: a5c352550b7714b4dbfd69bedd01318c,
     type: 3}
   _shooterChildStone: {fileID: 0}
+  speed: 0.9
 --- !u!136 &-2923414747984154115
 CapsuleCollider:
   m_ObjectHideFlags: 0

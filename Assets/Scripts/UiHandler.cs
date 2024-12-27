@@ -61,10 +61,9 @@ public class UiHandler : MonoBehaviour
     [Header("Coins")]
     [SerializeField] TextMeshProUGUI _silverCoins;
     [SerializeField] TextMeshProUGUI _goldCoins;
- 
-    private void Awake()
-    {
 
+    private void Start()
+    {
         handler = new UpdateHandler();
         _goldCoins.text = TemporaryCoins._goldCoins.ToString();
         _silverCoins.text = TemporaryCoins._silverCoins.ToString();
@@ -166,7 +165,7 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialBulletSpeedPrice<=TemporaryCoins._silverCoins)
         {
-            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            TemporaryCoins._silverCoins -= _initialBulletSpeedPrice;
             _silverCoins.text = TemporaryCoins._silverCoins.ToString();
 
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().BulletSpeedLvl, gameData._maxLevel,
@@ -182,7 +181,7 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialHealthUpgradePrice <= TemporaryCoins._silverCoins)
         {
-            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            TemporaryCoins._silverCoins -= _initialHealthUpgradePrice;
             _silverCoins.text = TemporaryCoins._silverCoins.ToString();
 
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().MaxHealthLvl, gameData._maxLevel,
@@ -198,7 +197,7 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialDamageResistancePrice <= TemporaryCoins._silverCoins)
         {
-            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            TemporaryCoins._silverCoins -= _initialDamageResistancePrice;
             _silverCoins.text = TemporaryCoins._silverCoins.ToString();
 
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().DamageResistanceLvl, gameData._maxLevel,
@@ -214,7 +213,7 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialRegenerationIntervalPrice <= TemporaryCoins._silverCoins)
         {
-            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            TemporaryCoins._silverCoins -= _initialRegenerationIntervalPrice;
             _silverCoins.text = TemporaryCoins._silverCoins.ToString();
 
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().RegenerationTimeIntervalLvl, gameData._maxLevel,
@@ -230,7 +229,7 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialRegenerationPrice <= TemporaryCoins._silverCoins)
         {
-            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            TemporaryCoins._silverCoins -= _initialRegenerationPrice;
             _silverCoins.text = TemporaryCoins._silverCoins.ToString();
 
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().RegenerationLvl, gameData._maxLevel,
@@ -246,7 +245,7 @@ public class UiHandler : MonoBehaviour
     {
         if (_initialKillBonusUpgradePrice <= TemporaryCoins._silverCoins)
         {
-            TemporaryCoins._silverCoins -= _initialStrengthPrice;
+            TemporaryCoins._silverCoins -= _initialKillBonusUpgradePrice;
             _silverCoins.text = TemporaryCoins._silverCoins.ToString();
 
             handler.SetUpgrade(ref DataPersistanceManager.Instance.GetLevelInfo().KillBonusLvl, gameData._maxLevel,

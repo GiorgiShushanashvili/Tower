@@ -3,11 +3,12 @@ using UnityEngine;
 public class Zombie : ZombieParent
 {
     public float health;
+    public float speed;
 
     private void Start()
     {
         _health = GlobalVariables._healthForWalkingZombie;
-        _speed = 0.3f;
+        _speed = speed;
         _isMoving = true;
         type = ZombieType.Warrior;
     }
