@@ -1045,7 +1045,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 021b33a0fa3eaa34d93e52b5f2bfdfe9, type: 2}
   - {fileID: 11400000, guid: d5607222e992ae9429f58b15136d8c15, type: 2}
   - {fileID: 11400000, guid: 6827e0049791bce4899d52dbe86cf6c5, type: 2}
-  - {fileID: 11400000, guid: 6827e0049791bce4899d52dbe86cf6c5, type: 2}
+  - {fileID: 11400000, guid: ac68b81a6f58c114ca90b20715d1bb9f, type: 2}
+  - {fileID: 11400000, guid: 8064eea771b97da448ce5017bc9d94c0, type: 2}
   _cube: {fileID: 405994170930584159, guid: eedad67feacc1f84ea0cc2b29efb266b, type: 3}
   _parent: {fileID: 584670817}
 --- !u!4 &88719714
@@ -13431,7 +13432,7 @@ PrefabInstance:
     - target: {fileID: 2239540919515751010, guid: 8a559ba6915be114eac09c123708c497,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5111303745607263776, guid: 8a559ba6915be114eac09c123708c497,
         type: 3}
@@ -13441,7 +13442,7 @@ PrefabInstance:
     - target: {fileID: 5111303745607263776, guid: 8a559ba6915be114eac09c123708c497,
         type: 3}
       propertyPath: useEncryption
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5652105639222237908, guid: 8a559ba6915be114eac09c123708c497,
         type: 3}

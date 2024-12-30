@@ -22,13 +22,18 @@ public class TowerHealth : MonoBehaviour
 
     private bool _isRegenerating = false;
 
-    void Start()
+    private void Awake()
     {
-        _updateHandler = new UpdateHandler();
+        
         if (towerHealth == null)
         {
             towerHealth = this;
         }
+    }
+
+    void Start()
+    {
+        _updateHandler = new UpdateHandler();
 
         GlobalVariables._maxHealth = _updateHandler.CalculateUpgrade(_gameData._minHealth, _gameData._maxHealth, 0, _gameData._maxLevel,
             DataPersistanceManager.Instance.GetLevelInfo().MaxHealthLvl);
