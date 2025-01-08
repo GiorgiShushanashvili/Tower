@@ -39,7 +39,7 @@ public class TemporaryCoins : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateCoinsFont();
+        //UpdateCoinsFont();
     }
 
     public void IncreaseCoinsByWalkingZombies()
