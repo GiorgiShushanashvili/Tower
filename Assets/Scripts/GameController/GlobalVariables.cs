@@ -23,5 +23,5 @@ public static class GlobalVariables
     public static float _waveBonus;
     public static float _killBonus;
 
-    
+    public static float _maxTaps=80;
 }

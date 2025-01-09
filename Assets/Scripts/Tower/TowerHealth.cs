@@ -84,7 +84,7 @@ public class TowerHealth : MonoBehaviour
         {
             yield return new WaitForSeconds(_intervalForRegeneration);
             float healthToAdd = Mathf.Min(_regenrate, _maxHealth - _currentHealth);
-            _currentHealth += healthToAdd;
+            _currentHealth += healthToAdd*Time.deltaTime;
             _towerHealth.text =Math.Round(_currentHealth,1).ToString();
 
             if (_currentHealth >= _maxHealth)
