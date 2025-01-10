@@ -7,14 +7,24 @@ using UnityEngine.UI;
 
 public class ResistanceController : MonoBehaviour
 {
-    [SerializeField]
-    Slider _slider;
+    public static ResistanceController Instance;
+
+    [SerializeField] Slider _slider;
     [SerializeField] TapController tapController;
 
     private float maxResistance;
-    private float currentResistance;
+    public float currentResistance;
 
-    private float resistanceAdding=4f;
+    private float resistanceAdding=6f;
+    public float resistanceReduce = 5f;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -26,11 +36,11 @@ public class ResistanceController : MonoBehaviour
 
     private void Update()
     {
-        test();
+        ResistanceFilling();
     }
 
 
-    public void test()
+    public void ResistanceFilling()
     {
         if (currentResistance < maxResistance)
         {
@@ -40,53 +50,23 @@ public class ResistanceController : MonoBehaviour
         }
     }
 
-    public void test1()
+    public void ResistanceReduce()
     {
-        currentResistance = currentResistance - 5;
-        Debug.Log(currentResistance);
-        _slider.value = currentResistance;
+        if (currentResistance > 0)
+        {
+            float resistanceToReduce= Mathf.Min(resistanceReduce, currentResistance - 0);
+            currentResistance = currentResistance - resistanceToReduce;
+            _slider.value = currentResistance;
+        }
     }
 
     private void OnEnable()
     {
-        tapController.OnPressed += test1;
+        tapController.OnPressed += ResistanceReduce;
     }
 
     private void OnDisable()
     {
-        tapController.OnPressed -= test1;
+        tapController.OnPressed -= ResistanceReduce;
     }
-
-
-
-    /*public void SetMaxResistance()
-    {
-        _slider.maxValue = maxResistance;
-        _slider.value = currentResistance;
-    }
-     public void SetResistance()
-    {
-        _slider.value = currentResistance;
-    }*/
-
-
-    /*private IEnumerator IncreaseResistance()
-    {
-        while (true)
-        {
-            if (currentResistance < maxResistance)
-            {
-
-                float resistanceToAdd = Mathf.Min(resistanceAdding, maxResistance - currentResistance);
-                Debug.Log(resistanceToAdd);
-                currentResistance = currentResistance + resistanceToAdd * Time.deltaTime;
-                currentResistance = Mathf.Lerp(currentResistance, maxResistance, currentResistance / maxResistance);
-                if (currentResistance >= maxResistance)
-                {
-                    currentResistance = maxResistance;
-                }
-            }
-            yield return new WaitForSecondsRealtime(0.01f);
-        }
-    }*/
 }

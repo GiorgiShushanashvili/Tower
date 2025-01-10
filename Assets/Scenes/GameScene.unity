@@ -155,7 +155,7 @@ MonoBehaviour:
   LevelTile: {fileID: 5414502882906936180, guid: eedad67feacc1f84ea0cc2b29efb266b,
     type: 3}
   _parent: {fileID: 39406803}
-  _player: {fileID: 7484833508871648428, guid: d9df53d87bd01284c8b661f5a8aa0ae9, type: 3}
+  _player: {fileID: 4293422067711422933, guid: bb3ed3c1ee1b6c44692f057aa73f4d53, type: 3}
 --- !u!4 &39406803
 Transform:
   m_ObjectHideFlags: 0
@@ -2022,7 +2022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.03773582, g: 0.03755782, b: 0.03755782, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4858,6 +4858,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 1650046058}
   tapController: {fileID: 1650463124}
+  currentResistance: 0
+  resistanceReduce: 5
 --- !u!1 &1650463116
 GameObject:
   m_ObjectHideFlags: 0
@@ -5037,7 +5039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08596f47783f95247a2504a22416ce13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Taps: 0
 --- !u!1 &1650845575
 GameObject:
   m_ObjectHideFlags: 0
@@ -5900,6 +5901,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1948711973}
   - component: {fileID: 1948711974}
+  - component: {fileID: 1948711975}
   m_Layer: 5
   m_Name: AccelerationBar
   m_TagString: Untagged
@@ -5979,6 +5981,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1948711975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948711972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17df51f11397167489401eda63533855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1948711974}
+  _tapController: {fileID: 1650463124}
 --- !u!1 &1952704145
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     [SerializeField] Transform _bulletPoint;
     [SerializeField] Rigidbody _bulletRb;
 
+
+    //meore tyvia,boostcontrolller unda gaxdes singleton an invoke it gamvidzaxo
+
+
     Vector3 potentialPos;
 
 
