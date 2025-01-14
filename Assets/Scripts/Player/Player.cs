@@ -37,8 +37,8 @@ public class Player : MonoBehaviour
         {
             Transform targetZombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
             float res = Degree(targetZombie.position);
-            potentialPos.x = 0.4f * Mathf.Sin(res);
-            potentialPos.z = 0.4f * Mathf.Cos(res);
+            potentialPos.x = 0.5f * Mathf.Sin(res);
+            potentialPos.z = 0.5f * Mathf.Cos(res);
             potentialPos.y = transform.position.y;
             move = true;
             CriticalAreaHandler.CriticalInstance._isMoving = false;
