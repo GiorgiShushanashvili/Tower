@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,15 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] Transform _bulletPoint;
     [SerializeField] Rigidbody _bulletRb;
 
-
-    //meore tyvia,boostcontrolller unda gaxdes singleton an invoke it gamvidzaxo
-
+    [SerializeField] public GameObject secondPistol;
+    [SerializeField] Transform secondBulletPoint;
+    [SerializeField] public Animator _controller;
 
     Vector3 potentialPos;
 
 
     bool move = false;
-
 
     private void FixedUpdate()
     {

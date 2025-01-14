@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="GameDataScriptableObject",menuName = "ScriptableObjects/GameDataScriptableObject",order=2)]
+[CreateAssetMenu(fileName ="GameDataScriptableObject",menuName = "ScriptableObjects/GameDataScriptableObject",order=1)]
 public class GameData : ScriptableObject
 {
     public float _minDamageStrength = 4f;

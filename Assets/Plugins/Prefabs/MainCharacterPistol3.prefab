@@ -1202,6 +1202,9 @@ MonoBehaviour:
   _bulletPoint: {fileID: 4761743470861999143}
   _bulletRb: {fileID: 6111630642506411542, guid: 93232fc577ede154c930b7a3121cf6c1,
     type: 3}
+  secondPistol: {fileID: 0}
+  secondBulletPoint: {fileID: 0}
+  _controller: {fileID: 0}
 --- !u!114 &90131491358273988
 MonoBehaviour:
   m_ObjectHideFlags: 0

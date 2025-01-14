@@ -3,14 +3,24 @@ using UnityEngine.UI;
 
 public class BoostController : MonoBehaviour
 {
+    public static BoostController Instance;
+
     [SerializeField] Slider slider;
     [SerializeField] TapController _tapController;
 
     private float maxBoost;
-    private float currentBoost;
+    public float currentBoost=0;
 
     private float boostReducer = 0.75f;
     private float boostIncr = 1f;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {

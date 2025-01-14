@@ -155,7 +155,7 @@ MonoBehaviour:
   LevelTile: {fileID: 5414502882906936180, guid: eedad67feacc1f84ea0cc2b29efb266b,
     type: 3}
   _parent: {fileID: 39406803}
-  _player: {fileID: 4293422067711422933, guid: bb3ed3c1ee1b6c44692f057aa73f4d53, type: 3}
+  _player: {fileID: 321216651544693856, guid: bb3ed3c1ee1b6c44692f057aa73f4d53, type: 3}
 --- !u!4 &39406803
 Transform:
   m_ObjectHideFlags: 0
@@ -1249,6 +1249,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOverCanvas: {fileID: 488108937}
   gameData: {fileID: 11400000, guid: 1c81dbdef53ac954887d91095e706bed, type: 2}
+  _playerStates:
+  - {fileID: 11400000, guid: caca91bee25e39d4a9ca43bf2c98ffaa, type: 2}
+  - {fileID: 11400000, guid: 4ddc1d6e30b731f45b046e37853b02c4, type: 2}
+  levelGenerator: {fileID: 39406802}
 --- !u!4 &415454655
 Transform:
   m_ObjectHideFlags: 0
@@ -5995,6 +5999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1948711974}
   _tapController: {fileID: 1650463124}
+  currentBoost: 0
 --- !u!1 &1952704145
 GameObject:
   m_ObjectHideFlags: 0

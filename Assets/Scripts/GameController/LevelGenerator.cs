@@ -1,13 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject LevelTile;
     [SerializeField] private Transform _parent;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private Player _player;
+
+    private Player obj;
+    public Animator Obj
+    {
+        get => obj._controller;
+        set => obj._controller = value;
+    }
+
+    public GameObject secondPistol
+    {
+        get => obj.secondPistol;
+        set=> obj.secondPistol = value;
+    }
+    
 
      MeshRenderer _renderer;
      MeshRenderer _renderer2;
@@ -27,9 +42,10 @@ public class LevelGenerator : MonoBehaviour
         _renderer2 = blockItem.CylinderMain.GetComponent<MeshRenderer>();
 
         _heightDelta = (_renderer.bounds.size.y + _renderer2.bounds.size.y);
-        GameObject player = Instantiate(_player, new Vector3(0, _heightDelta, 0), Quaternion.identity);
+        obj = Instantiate(_player, new Vector3(0, _heightDelta, 0), Quaternion.identity);
         //player.transform.SetParent(firstTile.transform);
         firstTile.transform.SetParent(_parent);
+       
 
         _heightDelta = (_renderer.bounds.size.y + _renderer2.bounds.size.y);
     }

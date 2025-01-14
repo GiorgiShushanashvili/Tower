@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _gameOverCanvas;
     private UpdateHandler _updateHandler;
     [SerializeField] private GameData gameData;
+
+
+    [SerializeField] public PlayerState[] _playerStates;
+    [SerializeField] LevelGenerator levelGenerator;
 
     private void Awake()
     {
@@ -27,6 +28,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
+
+    private void Update()
+    {
+        check();
+    }
+
+
     public void GameOver()
     {
         _gameOverCanvas.SetActive(true);
@@ -42,5 +50,22 @@ public class GameManager : MonoBehaviour
     {
         DataPersistanceManager.Instance.LoadGame();
         SceneManager.LoadScene("MainMenu");
+    }
+    private void check()
+    {
+        if (BoostController.Instance.currentBoost < 2)
+        {
+            levelGenerator.secondPistol.SetActive(false);
+            levelGenerator.Obj.runtimeAnimatorController = _playerStates[0].animatorController;
+        }
+        if (BoostController.Instance.currentBoost > 2 && BoostController.Instance.currentBoost < 4)
+        {
+            levelGenerator.secondPistol.SetActive(true);
+            levelGenerator.Obj.runtimeAnimatorController = _playerStates[1].animatorController;
+        }
+        /*if(BoostController.Instance.currentBoost > 4 && BoostController.Instance.currentBoost < 6)
+        {
+            AnimationManager.Animation._animator = _playerStates[1].animator;
+        }*/
     }
 }
