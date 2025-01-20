@@ -10,7 +10,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform _parent;
     [SerializeField] private Player _player;
 
-    private Player obj;
+    private PlayerParent obj;
     public Animator Obj
     {
         get => obj._controller;

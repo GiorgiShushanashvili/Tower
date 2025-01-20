@@ -1,29 +1,23 @@
 using UnityEditor.Animations;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : PlayerParent
 {
 
-    [SerializeField] GameObject _tower;
+    /*[SerializeField] GameObject _tower;
     [SerializeField] GameObject _bullet;
     [SerializeField] Transform _bulletPoint;
-    [SerializeField] Rigidbody _bulletRb;
+    [SerializeField] Rigidbody _bulletRb;*/
 
-    [SerializeField] public GameObject secondPistol;
+    /*[SerializeField] public GameObject secondPistol;
     [SerializeField] Transform secondBulletPoint;
-    [SerializeField] public Animator _controller;
-
-    Vector3 potentialPos;
-
-
-    bool move = false;
+    [SerializeField] public Animator _controller;*/
 
     private void FixedUpdate()
     {
         if (CriticalAreaHandler.CriticalInstance._isMoving)
         {
-
-            PLayerMove();
+            PlayerMove();
         }
         else if (move)
         {
@@ -31,14 +25,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PLayerMove()
+    public override void PlayerMove()
     {
         while (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
         {
             Transform targetZombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
             float res = Degree(targetZombie.position);
-            potentialPos.x = 0.5f * Mathf.Sin(res);
-            potentialPos.z = 0.5f * Mathf.Cos(res);
+            potentialPos.x = 0.3f * Mathf.Sin(res);
+            potentialPos.z = 0.3f * Mathf.Cos(res);
             potentialPos.y = transform.position.y;
             move = true;
             CriticalAreaHandler.CriticalInstance._isMoving = false;
@@ -46,7 +40,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Move()
+    public override void Move()
     {
         Vector3 lookAtPosition = potentialPos;
         lookAtPosition.y = transform.position.y;
@@ -56,7 +50,7 @@ public class Player : MonoBehaviour
         checker();
     }
 
-    private void SHootingHelper()
+    public override void SHootingHelper()
     {
         while (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
         {
@@ -75,7 +69,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void checker()
+    public override void checker()
     {
         float distanceThreshold = 0.03f;
 
@@ -98,8 +92,4 @@ public class Player : MonoBehaviour
         }
     }
 
-        float Degree(Vector3 pos)
-        {
-            return Mathf.Atan2(pos.x, pos.z);
-        }
     }

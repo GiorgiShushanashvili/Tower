@@ -164,7 +164,7 @@ AnimatorStateMachine:
     m_Position: {x: 290, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 91708671626838611}
-    m_Position: {x: 40, y: -460, z: 0}
+    m_Position: {x: 40, y: -470, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1323043336251846156}
     m_Position: {x: 350, y: -640, z: 0}
@@ -241,7 +241,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkWithPistol
-  m_Speed: 0.93
+  m_Speed: 0.6
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7459078683814128023}
@@ -254,7 +254,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 8407556528179109274, guid: caedc29efca6d8942a92ac28e4aa7389,
+  m_Motion: {fileID: -3773528098017054933, guid: 793ff8af91408f241be525322652d99a,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -297,8 +297,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3773528098017054933, guid: 183f4531d6cfe0142ac94680e0e24b86,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 121bb9b2b92fe604e8a505e02aa5d528, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
