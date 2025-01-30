@@ -130,16 +130,16 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2278194538686374033}
-    m_Position: {x: 470, y: -150, z: 0}
+    m_Position: {x: 480, y: -150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 91708671626838611}
-    m_Position: {x: 150, y: -290, z: 0}
+    m_Position: {x: 150, y: -300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -9092231059863117738}
     m_Position: {x: 1200, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1323043336251846156}
-    m_Position: {x: 380, y: -530, z: 0}
+    m_Position: {x: 370, y: -530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4865176284641597083}
     m_Position: {x: 1170, y: -520, z: 0}
@@ -169,7 +169,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: IsInTriggerZone
     m_Type: 4
@@ -216,7 +216,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkWithPistol
-  m_Speed: 0.6
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7459078683814128023}

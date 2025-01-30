@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static Enums;
 
 public class BoostController : MonoBehaviour
 {
@@ -7,12 +8,13 @@ public class BoostController : MonoBehaviour
 
     [SerializeField] Slider slider;
     [SerializeField] TapController _tapController;
+    //[SerializeField] ObjectClones _objectClones;
 
     private float maxBoost;
     public float currentBoost=0;
 
-    private float boostReducer = 0.75f;
-    private float boostIncr = 1f;
+    private float boostReducer = 0.35f;
+    private float boostIncr = 0.5f;
 
     private void Awake()
     {
@@ -33,6 +35,7 @@ public class BoostController : MonoBehaviour
     private void Update()
     {
         ReduceBoost();
+        ControlPlayerCodnition();
     }
 
     public void ReduceBoost()
@@ -54,6 +57,30 @@ public class BoostController : MonoBehaviour
             slider.value = currentBoost;
         }
     }
+
+
+    private void ControlPlayerCodnition()
+    {
+        if (ObjectClones._player != null)
+        {
+            if (currentBoost <= 0.1f)
+            {
+                ObjectClones._player.pLayerCondition = PLayerCondition.Standard;
+                ObjectClones._player.secondPistol.SetActive(false);
+            }
+            if (currentBoost <= 2.2f&& currentBoost >= 1.8f)
+            {
+                ObjectClones._player.pLayerCondition = PLayerCondition.FirstBoost;
+                ObjectClones._player.secondPistol.SetActive(false);
+            }
+            if (currentBoost>=3.8f&&currentBoost <= 4.2f)
+            {
+                ObjectClones._player.secondPistol.SetActive(true);
+                ObjectClones._player.pLayerCondition = PLayerCondition.SecondBoost;
+            }
+        }
+    }
+
 
 
     private void OnEnable()

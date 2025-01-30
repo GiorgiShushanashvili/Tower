@@ -27,22 +27,24 @@ public class CriticalAreaHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
+        /*if (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
         {
             AnimationManager.Animation._animator.SetBool("IsInTriggerZone", true);
         }
         else
         {
             AnimationManager.Animation._animator.SetBool("IsInTriggerZone", false);
-        }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Zombie")||other.CompareTag("ShooterZombie"))
         {
+            
             if (_criticalAreaZombies.Count == 0)
-            { _isMoving = true; }
+            {
+                _isMoving = true; }
 
             _criticalAreaZombies.Add(other.transform);
         }
@@ -55,7 +57,8 @@ public class CriticalAreaHandler : MonoBehaviour
         _criticalAreaZombies.RemoveAt(0);
 
         if (_criticalAreaZombies.Count> 0)
-        { _isMoving = true; }
+        {
+            _isMoving = true; }
     }
 
 }

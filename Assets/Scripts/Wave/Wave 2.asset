@@ -18,7 +18,7 @@ MonoBehaviour:
   _damageStrengthForZombies:
   - 4
   - 6
-  _numberToSpawn: 1200000007000000
+  _numberToSpawn: 0f00000008000000
   _timeIntervalBetweenZombies: 1.8
   _timeBeforeWave: 4
   _range: 06000000

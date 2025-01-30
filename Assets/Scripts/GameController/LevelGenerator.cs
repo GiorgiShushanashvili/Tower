@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
+using static Enums;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -10,12 +10,13 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform _parent;
     [SerializeField] private Player _player;
 
-    private PlayerParent obj;
-    public Animator Obj
-    {
-        get => obj._controller;
-        set => obj._controller = value;
-    }
+    //[SerializeField] private ObjectClones objectClone;
+
+    private Player objPLayer;
+
+    private Player obj;
+    public Player Obj { get => obj; }
+
 
     public GameObject secondPistol
     {
@@ -24,8 +25,8 @@ public class LevelGenerator : MonoBehaviour
     }
     
 
-     MeshRenderer _renderer;
-     MeshRenderer _renderer2;
+    MeshRenderer _renderer;
+    MeshRenderer _renderer2;
     private Rigidbody _rb;
 
     float _heightDelta = 0.1f;
@@ -38,17 +39,48 @@ public class LevelGenerator : MonoBehaviour
         GameObject firstTile = Instantiate(LevelTile, new Vector3(0, levels.Count, 0), Quaternion.identity);
         BlockItemClass blockItem = firstTile.GetComponent<BlockItemClass>();
         levels.Add(firstTile);
+
         _renderer = blockItem.CylinderTop.GetComponent<MeshRenderer>();
         _renderer2 = blockItem.CylinderMain.GetComponent<MeshRenderer>();
 
         _heightDelta = (_renderer.bounds.size.y + _renderer2.bounds.size.y);
         obj = Instantiate(_player, new Vector3(0, _heightDelta, 0), Quaternion.identity);
-        //player.transform.SetParent(firstTile.transform);
-        firstTile.transform.SetParent(_parent);
-       
 
+        if (ObjectClones._player == null)
+        {
+            ObjectClones._player = obj;
+        }
+        obj.transform.SetParent(firstTile.transform);
+        firstTile.transform.SetParent(_parent);
+      
         _heightDelta = (_renderer.bounds.size.y + _renderer2.bounds.size.y);
     }
+
+    /*private void ControlPLayerCondition()
+    {
+        if (BoostController.Instance.currentBoost == 0)
+        {
+            Debug.Log("sawyisia");
+            obj.pLayerCondition = PLayerCondition.Standard;
+            obj.secondPistol.SetActive(false);
+        }
+        if (BoostController.Instance.currentBoost == 2)
+        {
+            obj.pLayerCondition = PLayerCondition.FirstBoost;
+            obj.secondPistol.SetActive(false);
+        }
+        if (BoostController.Instance.currentBoost == 4)
+        {
+            obj.secondPistol.SetActive(true);
+            obj.pLayerCondition = PLayerCondition.SecondBoost;
+        }
+    }*/
+
+
+
+
+
+
 
     void AddTile()
     {
@@ -61,7 +93,6 @@ public class LevelGenerator : MonoBehaviour
         levels.Add(tile);
        
     }
-
     // Update is called once per frame
     /*void Update()
     {

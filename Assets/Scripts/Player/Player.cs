@@ -1,20 +1,14 @@
+using Cinemachine.Utility;
 using UnityEditor.Animations;
 using UnityEngine;
+using static Enums;
 
 public class Player : PlayerParent
 {
+    //[SerializeField] private ObjectClones objectClones;
 
-    /*[SerializeField] GameObject _tower;
-    [SerializeField] GameObject _bullet;
-    [SerializeField] Transform _bulletPoint;
-    [SerializeField] Rigidbody _bulletRb;*/
-
-    /*[SerializeField] public GameObject secondPistol;
-    [SerializeField] Transform secondBulletPoint;
-    [SerializeField] public Animator _controller;*/
-
-    private void FixedUpdate()
-    {
+    private void Update()
+    {  
         if (CriticalAreaHandler.CriticalInstance._isMoving)
         {
             PlayerMove();
@@ -27,23 +21,38 @@ public class Player : PlayerParent
 
     public override void PlayerMove()
     {
-        while (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
+        if (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
         {
             Transform targetZombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
-            float res = Degree(targetZombie.position);
-            potentialPos.x = 0.3f * Mathf.Sin(res);
-            potentialPos.z = 0.3f * Mathf.Cos(res);
-            potentialPos.y = transform.position.y;
-            move = true;
-            CriticalAreaHandler.CriticalInstance._isMoving = false;
-            break;
+            Vector3 dir = _tower.transform.position - targetZombie.position;
+            
+            Ray ray = new Ray(targetZombie.position, dir);
+            RaycastHit[] hits=Physics.RaycastAll(ray,Mathf.Infinity);
+            Debug.DrawRay(targetZombie.position, 50 * dir, Color.green, 2);
+
+            foreach(var hit in hits)
+            {
+                if (hit.collider.CompareTag("Edge"))
+                {
+                    potentialPos = hit.point;
+                    potentialPos.y = transform.position.y;
+                    move = true;
+                    CriticalAreaHandler.CriticalInstance._isMoving = false;
+                    AnimationManager.Animation._animator.SetBool("IsInTriggerZone", true);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            AnimationManager.Animation._animator.SetBool("IsInTriggerZone", false);
         }
     }
+
 
     public override void Move()
     {
         Vector3 lookAtPosition = potentialPos;
-        lookAtPosition.y = transform.position.y;
         Quaternion targetRotation = Quaternion.LookRotation(lookAtPosition - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.6f);
         transform.position = Vector3.MoveTowards(transform.position, lookAtPosition, 1f * Time.deltaTime);
@@ -71,8 +80,7 @@ public class Player : PlayerParent
 
     public override void checker()
     {
-        float distanceThreshold = 0.03f;
-
+        float distanceThreshold = 0.2f;
         if (Vector3.Distance(transform.position, potentialPos) <= distanceThreshold)
         {
             while (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)

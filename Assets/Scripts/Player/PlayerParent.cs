@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enums;
 
 public class PlayerParent : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PlayerParent : MonoBehaviour
 
     public Vector3 potentialPos;
     public bool move = false;
+
+    public PLayerCondition pLayerCondition;
 
     public virtual void SHootingHelper() { }
     public virtual void checker() { }

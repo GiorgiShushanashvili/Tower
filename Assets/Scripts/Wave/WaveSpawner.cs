@@ -12,7 +12,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private Transform _parent;
 
     private Wave _currentWave;
-    private float _radiusForSpawning = 5f;
+    private float _radiusForSpawning = 4f;
     private float _createdZombies;
     private float _zombiesToSpawn;
     private int i = 0;
@@ -24,6 +24,7 @@ public class WaveSpawner : MonoBehaviour
         _waveNumber.alpha = 0f;
         StartCoroutine(SpawnWave());
     }
+
 
     private Vector3 SpawnHelper()
     {

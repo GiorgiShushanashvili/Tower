@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Wave 5
   m_EditorClassIdentifier: 
   _enemyPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6071508475215596702, guid: 9000350a53f872b4ea7ca268f24a9519, type: 3}
+  - {fileID: 1850773749881705748, guid: a0ebcfd665a7bba43832b8042c2a435e, type: 3}
   _damageStrengthForZombies:
   - 9
   - 11
