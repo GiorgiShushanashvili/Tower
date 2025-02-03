@@ -66,7 +66,7 @@ public class BoostController : MonoBehaviour
             if (currentBoost <= 0.1f)
             {
                 ObjectClones._player.pLayerCondition = PLayerCondition.Standard;
-                ObjectClones._player.secondPistol.SetActive(false);
+                //ObjectClones._player.secondPistol.SetActive(false);
             }
             if (currentBoost <= 2.2f&& currentBoost >= 1.8f)
             {

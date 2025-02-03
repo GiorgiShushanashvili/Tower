@@ -4,36 +4,36 @@ using UnityEngine;
 
 public class FirstBoostPlayer : PlayerParent
 {
-    bool arrived;
-    bool _killedAllZombiesInView;
 
-    public override void PlayerMove()
+    Quaternion targetRotation;
+    Transform targetZoombie;
+
+    public void check() 
     {
-        if (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
+        float distanceThreshold = 0.2f;
+        if (Vector3.Distance(transform.position, potentialPos) <= distanceThreshold)
         {
-            Transform targetZombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
-            Vector3 dir = _tower.transform.position - targetZombie.position;
-
-            Ray ray = new Ray(targetZombie.position, dir);
-            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity);
-            Debug.DrawRay(targetZombie.position, 50 * dir, Color.green, 2);
-
-            foreach (var hit in hits)
+            while (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
             {
-                if (hit.collider.CompareTag("Edge"))
-                {
-                    potentialPos = hit.point;
-                    potentialPos.y = transform.position.y;
-                    move = true;
-                    CriticalAreaHandler.CriticalInstance._isMoving = false;
-                    AnimationManager.Animation._animator.SetBool("IsInTriggerZone", true);
-                    break;
-                }
+                targetZoombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
+                Vector3 lookAtPosition = targetZoombie.position;
+                lookAtPosition.y = gameObject.transform.position.y;
+
+                targetRotation = Quaternion.LookRotation(lookAtPosition - transform.position);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.9f);
+                break;
             }
+            move = false;
+            CriticalAreaHandler.CriticalInstance._isMoving = false;
+            AnimationManager.Animation._animator.SetBool("Shooting", true);
         }
-        else
-        {
-            AnimationManager.Animation._animator.SetBool("IsInTriggerZone", false);
-        }
+    }
+
+    public void Helper()
+    {
+        float viewableAngle = Vector3.Angle(targetZoombie.forward, transform.forward);
+
+
     }
 }

@@ -13,8 +13,6 @@ public class PlayerParent : MonoBehaviour
     [SerializeField] public GameObject secondPistol;
     [SerializeField] public Transform secondBulletPoint;
 
-    [SerializeField] public Animator _controller;
-
 
     public Vector3 potentialPos;
     public bool move = false;

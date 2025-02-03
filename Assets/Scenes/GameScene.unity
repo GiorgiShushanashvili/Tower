@@ -184,7 +184,7 @@ MonoBehaviour:
   LevelTile: {fileID: 2222121081345075891, guid: 54b917428e087634e8a15163fe90ceee,
     type: 3}
   _parent: {fileID: 39406803}
-  _player: {fileID: 9012955359049369191, guid: 77e709f876bc0884c89079e9697b3bb3, type: 3}
+  _player: {fileID: 6416326480516176137, guid: 8532987f9c2411849a18820412f6a19b, type: 3}
 --- !u!1 &65017414
 GameObject:
   m_ObjectHideFlags: 0
