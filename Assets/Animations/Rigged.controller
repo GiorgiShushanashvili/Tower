@@ -33,7 +33,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OnlyWalk
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2756490857770712895}
@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 8407556528179109274, guid: caedc29efca6d8942a92ac28e4aa7389,
+  m_Motion: {fileID: -2463781497245029270, guid: fee9ca5f0407d184995bf3840e453bbc,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -61,7 +61,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TwoHandShooting
-  m_Speed: 1.5
+  m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2178369923959032445}
@@ -74,7 +74,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3769bd2c07a81f8438b3465877473a58, type: 2}
+  m_Motion: {fileID: 7400000, guid: f3fd86d8029cfff49aaccadba6079142, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -150,13 +150,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -5250514354416816001}
-    m_Position: {x: 300, y: -400, z: 0}
+    m_Position: {x: 300, y: -370, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8637796189300240573}
     m_Position: {x: 300, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5937483903876821842}
-    m_Position: {x: 100, y: -230, z: 0}
+    m_Position: {x: 60, y: -220, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -184,7 +184,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.16955307
+  m_TransitionDuration: 0.10764828
   m_TransitionOffset: 0
   m_ExitTime: 0.60526323
   m_HasExitTime: 0
@@ -213,7 +213,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3773528098017054933, guid: f91184a597a6b6348ad8672c0e10fded,
+  m_Motion: {fileID: -2463781497245029270, guid: 2a22c0f7023d1e742b60ad61e0c69dd4,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

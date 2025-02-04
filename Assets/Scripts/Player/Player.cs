@@ -10,10 +10,19 @@ public class Player : PlayerParent
     [SerializeField] Transform _rightHandTarget;
     [SerializeField] Transform _leftHandTarget;
 
+    Transform secondEnemyToSHoot;
+    Transform targetZoombie;
+
+    private bool _shjouldRotate = false;
     private bool _secondToShoot = false;
 
     private void Update()
     {
+        /*else if (secondEnemyToSHoot != null)
+        {
+            _leftHandTarget.transform.position=secondEnemyToSHoot.position;
+        }*/
+
         if (CriticalAreaHandler.CriticalInstance._isMoving)
         {
             PlayerMove();
@@ -24,8 +33,18 @@ public class Player : PlayerParent
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (targetZoombie != null && _shjouldRotate)
+        {
+            Debug.Log(8);
+            _rightHandTarget.transform.position = targetZoombie.position;
+        }
+    }
+
     public override void PlayerMove()
     {
+        _shjouldRotate=false;
         if (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
         {
             Transform targetZombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
@@ -69,7 +88,7 @@ public class Player : PlayerParent
     {
         while (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
         {
-            Transform targetZoombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
+            targetZoombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
             GameObject bullet = Instantiate(_bullet, _bulletPoint.position, _bullet.transform.rotation);
             bullet.tag = "Bullet";
             Bullet spawnBullet = bullet.GetComponent<Bullet>();
@@ -90,11 +109,10 @@ public class Player : PlayerParent
         {
             if (_secondToShoot)
             {
-                Transform targetZoombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[1];
                 GameObject bullet = Instantiate(_bullet, secondBulletPoint.position, _bullet.transform.rotation);
                 bullet.tag = "Bullet";
                 Bullet spawnBullet = bullet.GetComponent<Bullet>();
-                Vector3 targetPostion = targetZoombie.position;
+                Vector3 targetPostion = secondEnemyToSHoot.position;
                 targetPostion.y = targetPostion.y + 0.25f;
                 Vector3 direction = (targetPostion - bullet.transform.position).normalized;
                 _bulletRb = bullet.GetComponent<Rigidbody>();
@@ -114,18 +132,19 @@ public class Player : PlayerParent
         {
             while (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 0)
             {
+                _shjouldRotate = true;
                 Transform targetZoombie = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[0];
-                _rightHandTarget.transform.position=targetZoombie.transform.position;
 
                 Vector3 lookAtPosition = targetZoombie.position;
                 lookAtPosition.y = gameObject.transform.position.y;
 
+                //_rightHandTarget.transform.position = targetZoombie.transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(lookAtPosition - transform.position);
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.9f);
                 break;
             }
-            SecondEnemyDetector();
+            //SecondEnemyDetector();
             move = false;
             CriticalAreaHandler.CriticalInstance._isMoving = false;
             AnimationManager.Animation._animator.SetBool("Shooting", true);
@@ -136,15 +155,15 @@ public class Player : PlayerParent
     {
         if (CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count > 1)
         {
-            ObjectClones._player.secondPistol.SetActive(true);
             for (int i = 1; i < CriticalAreaHandler.CriticalInstance._criticalAreaZombies.Count; i++)
             {
-                Transform secondTarget = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[i];
-                Vector3 targetDirection = secondTarget.position - transform.position;
+                secondEnemyToSHoot = CriticalAreaHandler.CriticalInstance._criticalAreaZombies[i];
+                Vector3 targetDirection = secondEnemyToSHoot.position - transform.position;
                 float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
                 if (viewableAngle > -50 && viewableAngle < 50)
                 {
-                    _leftHandTarget.transform.position=secondTarget.position;
+                    ObjectClones._player.secondPistol.SetActive(true);
+                    _leftHandTarget.transform.position= secondEnemyToSHoot.position;
                     _secondToShoot = true;
                 }
             }
